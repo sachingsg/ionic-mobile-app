@@ -1,0 +1,43 @@
+<ion-view cache-view="false" view-title="Tarrif Plan" ng-init="planCtrl.getSchemes()">
+    <ion-nav-buttons side="left">
+        <button class="back-button" ui-sref="app.mapView">
+          <i class="icon ion-chevron-left"></i> 
+        </button>
+    </ion-nav-buttons>
+        <ion-content ng-init="planCtrl.getMyPlan()">
+            <div class="popular-query" ng-show="planCtrl.myPlan.length > 0">
+                <h3 class="popular-city">My Plans</h3>                  
+                <ion-list ng-repeat="myScheme in planCtrl.myPlan">                  
+                    <ion-item class="item-stable query-list" ng-click="planCtrl.toggleGroup(myScheme)" ng-class="{active: planCtrl.isGroupShown(myScheme)}">                    
+                        <h3 class="heading">{{myScheme.description}}</h3>
+                    <h4 style="margin-left:10px;">Expires In: {{myScheme.validityLeft}} Days </h4>
+                    </ion-item>                      
+                    <ion-item class="item-accordion" ng-show="planCtrl.isGroupShown(myScheme)">
+                        <ion-item ng-hide="item.freeUsage == 0" ng-repeat="item in myScheme.schemeServiceDtls">
+                            <h2> {{item.freeUsage == 99 ? "Unlimited" : item.freeUsage-item.used+" of "+item.freeUsage}}&nbsp;Free&nbsp;{{item.serviceDesc}} Left</h2>
+                            <!-- <p>{{item.freeUsage == 99 ? "Unlimited" : item.freeUsage}} Free service/Year </p><p> {{item.used}} Used   </p>                            -->
+                        </ion-item>
+                        <!-- <ion-item ng-if="myScheme.discountOnConsumable">
+                                <h2>Discounts Available</h2>
+                        </ion-item> -->
+                    </ion-item>                   
+                </ion-list>               
+            </div>  
+            <div class="popular-query" ng-show="planCtrl.myPlan.length > 0">
+                <h3 class="popular-city">OTHER PLANS</h3>
+            </div>     
+            <div class="plan_head" ng-show="planCtrl.myPlan.length == 0">
+                <div class="over-lay">
+                    <h1>CHOOSE YOUR PLAN</h1>
+                </div>
+            </div>
+           
+            <div class="plan_list" >                   
+                <div class="plan_item" ng-repeat="schemes in planCtrl.shemelist" ng-click="planCtrl.planListModal(schemes)">
+                    <span class="plan">{{schemes.description}}</span>
+                    <i class="fa fa-rupee"></i><span class="plan_price">{{schemes.price}}</span>
+                </div>
+            </div> 
+    </ion-content>
+</ion-view>
+  

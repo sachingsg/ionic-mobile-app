@@ -1,0 +1,88 @@
+{
+  "_args": [
+    [
+      {
+        "raw": "ionic-ratings",
+        "scope": null,
+        "escapedName": "ionic-ratings",
+        "name": "ionic-ratings",
+        "rawSpec": "",
+        "spec": "latest",
+        "type": "tag"
+      },
+      "C:\\Users\\Aryan\\Desktop\\GSG-Ionic"
+    ]
+  ],
+  "_from": "ionic-ratings@latest",
+  "_id": "ionic-ratings@0.3.0",
+  "_inCache": true,
+  "_location": "/ionic-ratings",
+  "_nodeVersion": "6.4.0",
+  "_npmOperationalInternal": {
+    "host": "packages-12-west.internal.npmjs.com",
+    "tmp": "tmp/ionic-ratings-0.3.0.tgz_1476679291114_0.0711924231145531"
+  },
+  "_npmUser": {
+    "name": "rajeshwarpatlolla",
+    "email": "rajeshwar.patlolla@gmail.com"
+  },
+  "_npmVersion": "3.10.3",
+  "_phantomChildren": {},
+  "_requested": {
+    "raw": "ionic-ratings",
+    "scope": null,
+    "escapedName": "ionic-ratings",
+    "name": "ionic-ratings",
+    "rawSpec": "",
+    "spec": "latest",
+    "type": "tag"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/ionic-ratings/-/ionic-ratings-0.3.0.tgz",
+  "_shasum": "f850b67610e448e10d6c09ecbdcd51bc48e64c92",
+  "_shrinkwrap": null,
+  "_spec": "ionic-ratings",
+  "_where": "C:\\Users\\Aryan\\Desktop\\GSG-Ionic",
+  "author": {
+    "name": "rajeshwar.patlolla@gmail.com"
+  },
+  "dependencies": {},
+  "description": "A ratings plugin for IONIC framework",
+  "devDependencies": {
+    "del": "^2.2.2",
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.0",
+    "gulp-uglify": "^1.5.4"
+  },
+  "directories": {},
+  "dist": {
+    "shasum": "f850b67610e448e10d6c09ecbdcd51bc48e64c92",
+    "tarball": "https://registry.npmjs.org/ionic-ratings/-/ionic-ratings-0.3.0.tgz"
+  },
+  "gitHead": "5c502b9ea96452806c7ee94505fef7e9f0458a33",
+  "keywords": [
+    "ionic-ratings"
+  ],
+  "license": "MIT",
+  "main": "./dist/ionic-ratings.min.js",
+  "maintainers": [
+    {
+      "name": "rajeshwarpatlolla",
+      "email": "rajeshwar.patlolla@gmail.com"
+    }
+  ],
+  "name": "ionic-ratings",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
+  "repository": {
+    "type": "git",
+    "url": "git@github-personal:rajeshwarpatlolla/ionic-ratings.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "0.3.0"
+}

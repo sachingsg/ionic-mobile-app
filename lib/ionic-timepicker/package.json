@@ -1,0 +1,50 @@
+{
+  "_from": "ionic-timepicker",
+  "_id": "ionic-timepicker@0.6.0",
+  "_inBundle": false,
+  "_integrity": "sha1-e2eUpYWJ+lsCtmrEIA+1QxGwb4Y=",
+  "_location": "/ionic-timepicker",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "ionic-timepicker",
+    "name": "ionic-timepicker",
+    "escapedName": "ionic-timepicker",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/ionic-timepicker/-/ionic-timepicker-0.6.0.tgz",
+  "_shasum": "7b6794a58589fa5b02b66ac4200fb54311b06f86",
+  "_spec": "ionic-timepicker",
+  "_where": "D:\\IonicApplication\\Latest\\GSG-Ionic",
+  "author": {
+    "name": "https://github.com/rajeshwarpatlolla, rajeshwar.patlolla@gmail.com"
+  },
+  "authors": [
+    "rajeshwarpatlolla <rajeshwar.patlolla@gmail.com>"
+  ],
+  "bundleDependencies": false,
+  "dependencies": {},
+  "deprecated": false,
+  "description": "A time picker for IONIC framework",
+  "devDependencies": {
+    "del": "^2.0.2",
+    "gulp": "^3.9.0",
+    "gulp-concat": "^2.6.0",
+    "gulp-css2js": "^1.0.2",
+    "gulp-minify-html": "^1.0.4",
+    "gulp-ng-html2js": "^0.2.0",
+    "gulp-uglify": "^1.4.1"
+  },
+  "license": "MIT",
+  "main": "./dist/ionic-timepicker.bundle.min.js",
+  "name": "ionic-timepicker",
+  "scripts": {},
+  "version": "0.6.0"
+}

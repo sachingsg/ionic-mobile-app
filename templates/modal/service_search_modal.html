@@ -1,0 +1,26 @@
+<ion-modal-view>
+    <ion-header-bar class="bar-energized gsg-colour">
+        <button class="button button-clear" ng-click="srvcCtrl.closeModal()">
+            <i class="icon ion-android-close"></i>
+        </button>
+        <h1 class="title">Search Service</h1>
+    </ion-header-bar>
+    <ion-content>
+
+        <div class="list list-inset">
+            <label class="item item-input">
+                <i class="icon ion-search placeholder-icon"></i>
+                <input type="text" placeholder="Search your service" ng-model="srvcCtrl.searchQuery"  ng-change="srvcCtrl.searchService(srvcCtrl.searchQuery)">
+            </label>
+        </div>  
+        <div class="list list-plan">           
+            <ion-toggle ng-model="services.isSelect" toggle-class="toggle-calm" ng-repeat="services in srvcCtrl.serviceFilterArr">                       
+                    <h2>{{services.subCategory}}</h2>
+            </ion-toggle>
+        </div> 
+                
+    </ion-content>
+    <ion-footer-bar class="map-footer" >
+        <button class="button button-block button-map" type="submit" ng-click="srvcCtrl.selectedServices('search')">Next</button>        
+    </ion-footer-bar>
+</ion-modal-view>

@@ -1,0 +1,27 @@
+<ion-view cache-view="false" view-title="{{ticketCategory}}&nbsp;Request List" ng-init="tlCtrl.ticketList()">
+        <ion-nav-buttons side="left">
+            <button class="back-button" ui-sref="app.dashboard">
+              <i class="icon ion-chevron-left"></i> 
+            </button>
+        </ion-nav-buttons>
+        <ion-content>
+                <ion-refresher pulling-text="Pull to refresh..." on-refresh="tlCtrl.ticketList()"></ion-refresher>
+            <div ng-show="tlCtrl.selectedTicketArr.length == 0 || !tlCtrl.selectedTicketArr" class="cart-empty">
+                <i class="icon ion-android-list"> </i>
+                <h3>THIS LIST IS EMPTY</h3>                
+            </div>
+            <div class="list" ng-hide="tlCtrl.selectedTicketArr.length == 0 || !tlCtrl.selectedTicketArr" >                 
+                <div class="item item-button-right" ng-repeat="tickets in tlCtrl.selectedTicketArr" ui-sref="app.ticketListDetails({ticketData:tickets,order_id:tickets.orderId})">
+                    {{$index+1}}&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; {{tickets.orderId}} 
+                    <!-- <button class="button button-positive" ui-sref="app.ticketList">
+                        Approve                       
+                    </button>                   -->
+                    <button class="button" >
+                       <i class="icon ion-chevron-right"></i>                
+                    </button>
+                  
+                </div>                   
+            </div>
+        </ion-content>
+    </ion-view>
+      

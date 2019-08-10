@@ -1,0 +1,19 @@
+<ion-modal-view>
+    <ion-header-bar class="bar-energized gsg-colour">
+        <button class="button button-clear" ng-click="srvcCtrl.closeModal()">
+            <i class="icon ion-android-close"></i>
+        </button>
+        <h1 class="title">{{srvcCtrl.serviceType == "RA" ? "ROADSIDE ASSISTANCE" : srvcCtrl.serviceType}} {{srvcCtrl.serviceType == "RA" ? " " : "SERVICES"}}</h1>
+    </ion-header-bar>
+    <ion-content>          
+        <div class="list list-plan">           
+            <ion-toggle ng-model="services.isSelect" toggle-class="toggle-calm" ng-repeat="services in srvcCtrl.ServiceArr">                       
+                    <h2>{{services.subCategory}}</h2>
+                    <!-- <p>{{services.freeUsage}} Checkup/Year</p> -->
+            </ion-toggle>
+        </div>           
+    </ion-content>
+    <ion-footer-bar class="map-footer" >
+        <button class="button button-block button-map" type="submit" ng-click="srvcCtrl.selectedServices()">Next</button>        
+    </ion-footer-bar>
+</ion-modal-view>

@@ -1,0 +1,101 @@
+<ion-modal-view ng-init="tlCtrl.getAllServices()">
+    <ion-header-bar class="bar-energized gsg-colour" >
+        <button class="button button-clear" ng-click="tlCtrl.closeNewSvcModal()">
+            <i class="icon ion-android-close"></i>
+        </button>
+        <h1 class="title">Add New Service</h1>
+    </ion-header-bar>
+    <ion-content>          
+        <ion-list>
+            <ion-item>
+                <div class="row">
+                    <label class="item item-input item-select col-70">
+                        <div class="input-label">
+                            Type
+                        </div>
+                        <select name="add_on_type" ng-model="tlCtrl.addOnSvcCapture.type" ng-options="type as type for type in tlCtrl.addOntypeArr" >
+                            
+                        </select>
+                    </label>
+                    <div class="button-bar col col-30">
+                            <a class="button button-positive w-100 m-t-5" ng-disabled="!tlCtrl.addOnSvcCapture.type" ng-click="tlCtrl.addItemToArray()">ADD</a> 
+                    </div>
+                </div>                
+                <span class="span-text w-s-i m-l-30 m-t-5" ng-show="tlCtrl.addOnSvcCapture.type && tlCtrl.addOnSvcCapture.type !== 'SERVICE'">(NB: Fields with * mark are required fields)</span>
+            </ion-item> 
+              
+         <div class="list list-plan" ng-show="tlCtrl.addOnSvcCapture.type == 'SERVICE'">   
+             <div  ng-repeat="services in tlCtrl.serviceFilterArr">
+                <ion-toggle class="b-b-n" ng-model="services.isSelect" toggle-class="toggle-calm">                       
+                        <h2>{{services.subCategory}}</h2>
+                </ion-toggle>
+                <label ng-show="services.each && services.isSelect" class="col col-50 profile-form item-floating-label" >
+                    <span class="input-label col col-100">Quantity*</span>
+                    <input class="each-quantity-input" type="number" ng-show="services.each"  class="col col-60" name="price" placeholder="Each quantity *" ng-model="services.quantity">
+                </label>
+               <!-- <span class="sapn-text w-s-i row">
+                    <label ng-show="services.each && services.isSelect" class="col col-50 profile-form item-floating-label" >
+                        <span class="input-label col col-100">Quantity*</span>
+                        <input class="each-quantity-input" type="number" ng-show="services.each"  class="col col-60" name="price" placeholder="Each quantity *" ng-model="services.quantity">
+                    </label>
+                    <label ng-show="services.isSelect" class="col col-50 profile-form item-floating-label" >
+                        <span class="input-label col col-100">Discount*</span>
+                        <input class="each-quantity-input" type="number" ng-show="services.each"  class="col col-60" name="price" placeholder="Each quantity *" ng-model="services.quantity">
+                    </label>
+                </span>  -->
+              
+            
+            </div>        
+           
+        </div> 
+        <label ng-show="tlCtrl.addOnSvcCapture.type && tlCtrl.addOnSvcCapture.type !== 'SERVICE'" class="profile-form item-floating-label" >
+            <span class="input-label col col-100">Item Description *</span>
+            <textarea type="text" class="col col-100" name="description" placeholder="Item Description *" ng-model="tlCtrl.addOnSvcCapture.desc" rows="3"></textarea>
+        </label>
+        <label ng-show="tlCtrl.addOnSvcCapture.type && tlCtrl.addOnSvcCapture.type !== 'SERVICE'" class="profile-form item item-input item-select m-t-5" >
+            <div class="input-label col-60">Quantity *</div>                   
+            <select class="col-40" name="add_on_quantity" ng-model="tlCtrl.addOnSvcCapture.quantity" >
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+        </label>
+        <label ng-show="tlCtrl.addOnSvcCapture.type && tlCtrl.addOnSvcCapture.type !== 'SERVICE'" class="profile-form item item-input item-select m-t-5" >
+            <div class="input-label col-60">GST * (In percentage)</div>                   
+            <select class="col-40" name="add_on_tax" ng-model="tlCtrl.addOnSvcCapture.gst" ng-options="type as type+'%' for type in tlCtrl.gstPercentageArr" >
+            </select>
+        </label>
+        <label ng-show="tlCtrl.addOnSvcCapture.type && tlCtrl.addOnSvcCapture.type !== 'SERVICE'" class="profile-form item-floating-label" >
+            <span class="input-label col col-100">Item Price *</span>
+            <input type="number" class="col col-100" name="price" placeholder="Item Price *" ng-model="tlCtrl.addOnSvcCapture.price">
+        </label>
+     
+        </ion-list>
+       
+            <ion-item ng-hide="tlCtrl.addOnSvcItemArr.length == 0" ng-repeat="selections in tlCtrl.addOnSvcItemArr"> 
+                <hr>
+                    <h3 class="popular-city">{{selections.type}}({{$index+1}})</h3>
+                <hr class="m-r-60" >
+                <span class="span-text"  ng-hide="selections.serviceList.length == 0" ng-repeat="services in selections.serviceList">
+                    <span class="row w-s-i"><p class="w-s-i col col-100">{{$index+1}} - {{services.subCategory}}</p></span>
+                    <span class="row w-s-i"> <p class="w-s-i col col-70">Quantity</p><p class="col-30">&nbsp;{{services.quantity > 1 ? services.quantity+ "( Items)" :   services.quantity}}</p></span>
+                    <span class="row w-s-i"><p class="w-s-i col col-70">GST</p><p class="col-30">&nbsp;{{services.gst+"%"}}</p></span> 
+                    <span class="row w-s-i"><p class="w-s-i col col-70">Price(Per item)</p><p class="col-30"><i class="fa fa-inr" aria-hidden="true"></i>&nbsp;{{services.price[ tlCtrl.ticketDetails.orderDtls[0].product.usrVehicle.vehicle.type] }} {{services.freeApplied ? "(Free Applied)" : " "}} {{services.freeApplied ? "(Free Applied)" : " "}}</p></span> 
+                    <hr ng-hide="$last" class="m-r-60" >
+                </span>
+                <span class="span-text" ng-hide="selections.type == 'SERVICE'">
+                       <span class="row w-s-i"> <p class="w-s-i col col-70">Description</p><p class="col-30">&nbsp;{{selections.desc}}</p></span>
+                       <span class="row w-s-i"> <p class="w-s-i col col-70">Quantity</p><p class="col-30">&nbsp;{{selections.quantity}}</p></span>
+                       <span class="row w-s-i"><p class="w-s-i col col-70">GST</p><p class="col-30">&nbsp;{{selections.gst+"%"}}</p></span> 
+                       <span class="row w-s-i"><p class="w-s-i col col-70">Price(Per item)</p><p class="col-30">&nbsp;{{selections.price}}</p></span> 
+                        
+                </span>
+                
+            </ion-item> 
+    </ion-content>
+    <ion-footer-bar class="map-footer" >
+        <button class="button button-block button-map" type="submit" ng-disabled="tlCtrl.addOnSvcItemArr.length == 0" ng-click="tlCtrl.addNewServicesToUserCart()">SUBMIT</button>        
+    </ion-footer-bar>
+</ion-modal-view>

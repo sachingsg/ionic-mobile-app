@@ -1,0 +1,76 @@
+<ion-modal-view>
+        <ion-header-bar class="bar-energized gsg-colour" >
+            <button class="button button-clear" ng-click="closeChekoutModal()">
+                <i class="icon ion-android-close"></i>
+            </button>
+            <h1 class="title">Check Out</h1>
+        </ion-header-bar>
+        <ion-content> 
+            <ion-item class="cart-item">
+                <ion-item class="gsg-theme">
+                    
+                    <h2 >PRICE DETAILS {{paymentDatas.productInfo.length ? "("+paymentDatas.productInfo.length+" Items)" : ""}}</h2><hr>
+                    <span class="span-text row"><p class="col col-80">Order Type </p><p class="col-20">{{paymentDatas.productType}}</p></span>
+                    <ul class="row" ng-repeat="products in paymentDatas.productInfo">
+                        <li class="col col-80">               
+                            <p class="w-s-i"> {{products.productDesc}}&nbsp;{{products.freeApplied ? "(Free Applied)" : " "}}</p>                        
+                        </li>
+                        <li class="col col-20 text-right">               
+                            <p class="w-s-i"><i class="fa fa-inr" aria-hidden="true"></i> <strike class="strike" ng-show="products.freeApplied"> {{products.amount}}</strike> <strong ng-hide="products.freeApplied"> {{products.amount}}</strong></p>                        
+                        </li>
+                    </ul><hr>
+                    <ul class="row" >
+                        <li class="col col-70">               
+                            <p class="w-s-i"><b>TOTAL</b></p>                        
+                        </li>
+                        <li class="col col-30 text-right">               
+                            <p class="w-s-i"> <strong><i class="fa fa-inr" aria-hidden="true"></i>{{paymentDatas.amount}}</strong></p>                        
+                        </li>
+                    </ul>
+                    
+                    <span ng-hide="paymentDatas.productType == 'SCHEME'" class="span-text w-s-i m-l-30 m-t-5">
+                        (NB : Price inclusive of all taxes)
+                    </span>
+                    <ul class="row" ng-show="paymentDatas.productType == 'SCHEME'">
+                        <li class="col col-70">               
+                            <p class="w-s-i"><b>CGST</b></p>                        
+                        </li>
+                        <li class="col col-30 text-right">               
+                            <p class="w-s-i"> <strong><i class="fa fa-inr" aria-hidden="true"></i>{{(paymentDatas.payableAmount-paymentDatas.amount)/2 | number}}</strong></p>                        
+                        </li>
+                    </ul>
+                    <ul class="row" ng-show="paymentDatas.productType == 'SCHEME'">
+                            <li class="col col-70">               
+                                <p class="w-s-i"><b>SGST</b></p>                        
+                            </li>
+                            <li class="col col-30 text-right">               
+                                <p class="w-s-i"> <strong><i class="fa fa-inr" aria-hidden="true"></i>{{(paymentDatas.payableAmount-paymentDatas.amount)/2 }}</strong></p>                        
+                            </li>
+                        </ul><hr>
+                    <ul class="row" ng-show="paymentDatas.productType == 'SCHEME'">
+                        <li class="col col-70 cart-price">               
+                            <p class="w-s-i"><b>AMOUNT PAYABLE</b></p>                        
+                        </li>
+                        <li class="col col-30 text-right">               
+                            <p class="w-s-i"> <strong class="cart-price gsg-theme"><i class="fa fa-inr" aria-hidden="true"></i>{{paymentDatas.payableAmount}}</strong></p>                        
+                        </li>
+                    </ul>
+
+                </ion-item>
+            </ion-item> 
+            <ion-item>
+                <ion-item>
+                    <h2 > <b>PAYMENT OPTIONS </b></h2><hr>      
+                        <!-- <ion-radio ng-model="payments.paymentType" class="gsg-theme b-n" name="vehicle_radio" ng-value="options" ng-if="paymentDatas.productType == 'SERVICE' && options != 'ONLINE PAYMENT'" ng-hide="paymentDatas.productType == 'SCHEME' && options == 'COD'" ng-repeat="options in getPaymentOptions"> -->
+                        <ion-radio ng-model="payments.paymentType" class="gsg-theme b-n" name="vehicle_radio" ng-value="options" ng-hide="paymentDatas.productType == 'SCHEME' && options == 'COD'" ng-repeat="options in getPaymentOptions">
+                            <h2>{{options}}</h2>
+                        </ion-radio>         
+                </ion-item>
+            </ion-item>        
+             
+               
+        </ion-content>
+        <ion-footer-bar class="map-footer" >
+            <button class="button button-block button-map" type="submit" ng-disabled="!payments.paymentType"  ng-click="paymentNow()">PAY NOW</button>        
+        </ion-footer-bar>
+    </ion-modal-view>

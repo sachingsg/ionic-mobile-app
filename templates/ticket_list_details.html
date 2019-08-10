@@ -1,0 +1,101 @@
+<ion-view cache-view="false" view-title="REQUEST DETAILS" ng-init="tlCtrl.getOrderForTicket()">
+        <ion-nav-buttons side="left">
+            <button class="back-button" ui-sref="app.ticketList">
+              <i class="icon ion-chevron-left"></i> 
+            </button>
+        </ion-nav-buttons>
+        <ion-content ng-init="tlCtrl.getmap(tlCtrl.ticketDetails.orderDtls[0].product.location)">
+                <ion-refresher pulling-text="Pull and leave to refresh..." on-refresh="tlCtrl.refreshTicketDetailsPage()"></ion-refresher>
+             <div id="reqMap"></div>
+             <div class="list req-map-locName map-search">
+                <label class="item item-location" >
+                    <span>{{tlCtrl.location.formatted_address}}</span>
+                </label>
+                <button class="relocate-user location-name" type="submit" ng-click="tlCtrl.getmap(tlCtrl.ticketDetails.orderDtls[0].product.location)">Relocate User</button>
+            </div>
+            
+           <ion-item>
+               
+                <span class="span-text" >
+                        <!-- <h2>COUSTOMER DETAILS</h2> -->
+                    <h3>
+                        {{tlCtrl.ticketDetails.userName}}
+                    </h3>
+                    <p>
+                        {{tlCtrl.ticketDetails.contactNbr}} <button class="call-button" ng-click="tlCtrl.callThisNumber(tlCtrl.ticketDetails.contactNbr)"><i class="icon ion-android-call"></i>&nbsp;Call Now</button>
+                    </p>
+                </span> 
+                <hr>   
+                <span class="span-text" ng-hide="!tlCtrl.ticketDetails.orderDtls[0].product.usrVehicle.vehicle.make && !tlCtrl.ticketDetails.orderDtls[0].product.usrVehicle.vehicle.make">
+                    <p class="w-s-i"> VEHICLE - {{!tlCtrl.ticketDetails.orderDtls[0].product.usrVehicle.vehicle.make  ? " " :tlCtrl.ticketDetails.orderDtls[0].product.usrVehicle.vehicle.make}} {{!tlCtrl.ticketDetails.orderDtls[0].product.usrVehicle.vehicle.models ? " ": tlCtrl.ticketDetails.orderDtls[0].product.usrVehicle.vehicle.models}} {{!tlCtrl.ticketDetails.orderDtls[0].product.usrVehicle.registrationNumber ? " ": tlCtrl.ticketDetails.orderDtls[0].product.usrVehicle.registrationNumber}}</p>
+                <hr>
+                </span>
+                <span class="span-text">
+                    <!-- <h2>TICKET DETAILS</h2> -->
+                    <p class="w-s-i"> ORDER ID -  {{tlCtrl.ticketDetails.orderId}}</p>
+                    <p class="w-s-i"> PRODUCT TYPE -  {{tlCtrl.ticketDetails.produtType}}</p>
+                    <p class="w-s-i"> Status -  {{tlCtrl.ticketDetails.requestStatus == "WIP" ? "WORK IN PROGRESS" : tlCtrl.ticketDetails.requestStatus }}</p>
+                    <!-- <p class="w-s-i"> Ticket Id -  {{tlCtrl.ticketDetails.ticketId}}</p> -->
+                    <p class="w-s-i"> Service Date -  {{tlCtrl.ticketDetails.serviceDate}}</p>
+                </span><hr>
+                <div ng-repeat="orders in tlCtrl.ticketDetails.orderDtls"> 
+                        <h3 class="popular-city">Order-{{$index+1}}&nbsp; ({{orders.product.serviceDate}})</h3>
+                        <hr class="m-r-25"><br>
+                    <span class="span-text row"  ng-hide="orders.product.services.length == 0" ng-repeat="services in orders.product.services">
+                        <p class="w-s-i col col-80">{{services.subCategory}}&nbsp;{{services.freeApplied ? "(Free Applied)" : " "}} {{services.quantity > 1 ? "("+services.quantity+" Items)" : ""}} </p> <p class="col-20" ><i class="fa fa-inr" aria-hidden="true"></i>&nbsp; <strike class="strike" ng-show="services.freeApplied">{{services.totalPrice }}</strike> <strong ng-hide="services.freeApplied">{{services.effectivePrice }} </strong> </p>
+                    </span><hr class="m-r-25" ng-hide="orders.product.services.length == 0">
+                   
+                   
+                    <span class="span-text row" ng-show="tlCtrl.ticketDetails.produtType == 'EMERGENCY' && orders.product.services.length == 0" ><strong><p> This is an EMERGENCY order.</p></strong></span>                                   
+                    <span class="span-text row" ng-show="tlCtrl.ticketDetails.produtType == 'EMERGENCY' && !tlCtrl.ticketDetails.orderDtls[1]" ><strong><p> Please Add on services as per customer requirement </p></strong></span>                                   
+                    <span class="span-text row" ng-show="tlCtrl.ticketDetails.produtType == 'EMERGENCY' && tlCtrl.ticketDetails.orderDtls[1] && $index == 0" ><strong><p> New Services confirmed to this request by Customer</p></strong></span>                                   
+
+
+                        <span class="span-text row" ng-hide="orders.product.services.length == 0"><p class="col col-80"> Total Price </p><p class="col-20"><i class="fa fa-inr" aria-hidden="true"></i>&nbsp;<b>{{orders.calculatedPrice}} </b></p></span>
+                        <!-- <span class="span-text row" ng-hide="orders.product.services.length == 0"><p class="col col-80"> CGST </p><p class="col-20"><i class="fa fa-inr" aria-hidden="true"></i>&nbsp;<b>{{orders.totalGst/2 | number}} </b></p></span>
+                        <span class="span-text row" ng-hide="orders.product.services.length == 0"><p class="col col-80"> SGST </p><p class="col-20"><i class="fa fa-inr" aria-hidden="true"></i>&nbsp;<b>{{orders.totalGst/2 | number}} </b></p></span>
+                        <hr ng-hide="orders.product.services.length == 0">
+                        <span class="span-text row" ng-hide="orders.product.services.length == 0"><p class="col col-80"> Total  </p><p class="col-20"><i class="fa fa-inr" aria-hidden="true"></i>&nbsp;<b>{{orders.payableAmount}} </b></p></span> -->
+                        <!-- <span class="w-s-i m-b-5">
+                                (NB : Price inclusive of all taxes)
+                            </span> -->
+                 
+                        <h3 class="popular-city span-text" ng-hide="tlCtrl.ticketDetails.produtType == 'EMERGENCY' && orders.transactionMode == 'NA'">Payment Details</h3>
+                        <hr class="m-r-25" ng-hide="tlCtrl.ticketDetails.produtType == 'EMERGENCY' && orders.transactionMode == 'NA'">
+                       
+                        <span class="span-text row" ng-hide="tlCtrl.ticketDetails.produtType == 'EMERGENCY' && orders.transactionMode == 'NA'"><p class="col col-50">Payment Mode</p><p class="col-50"><b>{{orders.transactionMode}} </b><button class="location-name m-l-30" ng-show="orders.transactionMode =='COD'" type="submit" ng-disabled="orders.transactionStatus == 'COMPLETED' || tlCtrl.ticketDetails.requestStatus == 'CREATED' || tlCtrl.ticketDetails.requestStatus == 'EMERGENCY'" ng-click="tlCtrl.openConfirmCodModal(orders.id,orders.payableAmount)">{{orders.transactionStatus == 'COMPLETED' ? "Received" : "Receive"}}</button></p></span>
+                        <span class="span-text row" ng-hide="tlCtrl.ticketDetails.produtType == 'EMERGENCY' && orders.transactionMode == 'NA'"><p class="col col-50">Payment Status</p><p class="col-50"><b>{{orders.transactionStatus}} </b></p></span>
+                        <span class="span-text row" ng-show="orders.transactionStatus == 'COMPLETED' && orders.transactionDate"><p class="col col-50" >Payment Date</p><p class="col-50"><b> {{orders.transactionDate}} </b></p></span>
+                        <!-- <hr ng-hide="orders.transactionMode == 'NA'"> -->
+                        <br>
+                </div>           
+           </ion-item>
+           <ion-list class="m-t-5" ng-init="tlCtrl.getPendingAddOns(tlCtrl.ticketDetails.orderId, tlCtrl.ticketDetails.userId)"  ng-hide="tlCtrl.pendingAddOns.length == 0" >
+                <h3 class="popular-city m-t-5">Add Ons Pending For Approval&nbsp;({{tlCtrl.pendingAddOns.length}})</h3>   
+                <ion-item class="cart-item" ng-hide="tlCtrl.pendingAddOns.length == 0" ng-repeat="orders in tlCtrl.pendingAddOns" >                
+                    <h2 ng-show="orders.productType == 'SERVICE'">Add On -&nbsp; {{$index+1}}{{orders.product.services.length ? "("+orders.product.services.length+" Items)" : ""}}</h2><hr>
+                    <ul ng-show="orders.productType == 'SERVICE'">
+                        <li class="row" ng-repeat="services in orders.product.services">                        
+                           
+                            <p class="w-s-i col col-80">{{services.subCategory}}&nbsp;{{services.freeApplied ? "(Free Applied)" : " "}} {{services.quantity > 1 ? "("+services.quantity+" Items)" : ""}} </p> <p class="col-20" ><i class="fa fa-inr" aria-hidden="true"></i>&nbsp; <strike class="strike" ng-show="services.freeApplied">{{services.totalPrice }}</strike> <strong ng-hide="services.freeApplied">{{services.effectivePrice }} </strong> </p> 
+                        </li>
+                    </ul>  
+                    <hr>
+                    <span class="span-text row" ng-hide="orders.product.services.length == 0"><p class="col col-80"> Total  </p><p class="col-20"><i class="fa fa-inr" aria-hidden="true"></i>&nbsp;<b>{{orders.amount}} </b></p></span>                               
+                </ion-item>
+           </ion-list>
+            
+        
+           <div class="button-bar" ng-hide="tlCtrl.ticketDetails.requestStatus == 'CLOSED'">
+                <a class="button button-positive" ng-disabled="tlCtrl.ticketDetails.requestStatus == 'WIP' || tlCtrl.ticketDetails.requestStatus == 'RESOLVED' || tlCtrl.ticketDetails.requestStatus == 'REJECTED'" ng-click="tlCtrl.changeTicketStatus('WIP')">Approve</a>
+                <a class="button button-calm" ng-disabled="tlCtrl.ticketDetails.requestStatus !== 'WIP'" ng-click="tlCtrl.changeTicketStatus('RESOLVED')">Resolve</a>
+                <a class="button button-assertive" ng-disabled="tlCtrl.ticketDetails.requestStatus == 'RESOLVED' || tlCtrl.ticketDetails.requestStatus == 'REJECTED' || tlCtrl.ticketDetails.requestStatus == 'WIP'" ng-click="tlCtrl.changeTicketStatus('REJECTED')">Reject</a>               
+           </div>
+        </ion-content>
+        <!--   -->
+        <ion-footer-bar  class="map-footer" ng-hide="tlCtrl.ticketDetails.requestStatus == 'CLOSED'">
+           
+            <button class="button button-block button-map" ng-disabled="tlCtrl.ticketDetails.requestStatus !== 'WIP'" type="submit"  ng-click="tlCtrl.openAddNewSvcModal()">ADD NEW SERVICE</button>   
+        </ion-footer-bar>
+    </ion-view>
+      

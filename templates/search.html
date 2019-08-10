@@ -1,0 +1,39 @@
+<ion-modal-view cache-view="false">
+  <ion-content class="gsg_main_container">
+    <div class="gsg_login">
+      <div class="banner_logo">
+          <img src="img/logo3.png" alt="">
+      </div>
+      <div>
+        <form>
+          <div class="list">
+            <label class="item item-input">
+              <select>
+                <option>2 Wheeler</option>
+                <option selected>3 Wheeler</option>
+                <option>4 Wheeler</option>
+              </select>
+            </label>
+            <label class="item item-input">
+              <input type="text" ng-model="loginCtrl.user.password" placeholder="Full Name">
+            </label>
+            <label class="item item-input">
+              <textarea name="" id="" rows="4" placeholder="Address"></textarea>
+            </label>
+            <label class="item item-input">
+              <input type="text" ng-model="loginCtrl.user.password" placeholder="Mobile">
+            </label>
+            <label class="item item-input">
+              <input type="text" ng-model="loginCtrl.user.password" placeholder="Alternate No">
+            </label>
+            <label class="item item-input">
+              <input type="text" ng-model="loginCtrl.user.password" placeholder="Email">
+            </label>
+            <button class="button button-block button-positive" type="submit" ng-click="loginCtrl.login()">Submit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    
+  </ion-content>
+</ion-modal-view>

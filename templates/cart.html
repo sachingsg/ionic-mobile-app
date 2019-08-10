@@ -1,0 +1,119 @@
+<ion-view cache-view="false" ng-init="cartCtrl.myCartOrders()" view-title="My Cart({{cartCtrl.cartOrders.length + cartCtrl.cartAddOns.length }})" >
+        <ion-nav-buttons side="left">
+            <button class="back-button" ui-sref="app.mapView">
+              <i class="icon ion-chevron-left"></i> 
+            </button>
+        </ion-nav-buttons>
+    <ion-content class="whitesmoke my_cart" scroll="true">
+            <ion-refresher pulling-text="Pull and leave to refresh..." on-refresh="cartCtrl.myCartOrders()"></ion-refresher>
+        <ion-slide-box class="" show-pager="false" ion-slide-tabs>
+            <ion-slide ion-slide-tab-label="WISH LIST" disable-scroll="false" >
+                <div ng-show="cartCtrl.cartOrders.length == 0 || !cartCtrl.cartOrders" class="cart-empty">
+                    <i class="icon ion-android-cart"> </i>
+                    <h3> NO ITEMS IN WISH LIST</h3>
+                    
+                </div>
+                <ion-list ng-hide="cartCtrl.cartOrders.length == 0 || !cartCtrl.cartOrders">
+                    <ion-item class="cart-item" ng-repeat="orders in cartCtrl.cartOrders" >
+                        <ion-radio style="margin :-2px;" class="gsg-theme" ng-model="cartCtrl.cartSelection" ng-value="orders" ng-change="cartCtrl.getTotalPrice(cartCtrl.cartSelection)">
+                            <h2 ng-show="orders.productType == 'SERVICE'">SERVICES{{orders.product.services.length ? "("+orders.product.services.length+" Items)" : ""}}</h2>
+                            <h2 ng-show="orders.productType == 'SCHEME'">SCHEME</h2><hr class="cart-hr">
+                            <ul  ng-show="orders.productType == 'SCHEME'">
+                                <li class="row">               
+                                    <p class="w-s-i col col-70"> SCHEME TYPE</p><p class="col-30">  {{orders.product.schemeType}}</p>                        
+                                </li>
+                                <li class="row">                
+                                    <p class="w-s-i col col-70"> SCHEME NAME</p><p class="col-30">  {{orders.product.description}}</p>                       
+                                </li>
+                                <li class="row">                                      
+                                    <p class="w-s-i col col-70"> VALIDITY</p><p class="col-30">  {{orders.product.durationInDays ? orders.product.durationInDays+"Days" : " "}}</p> 
+                                </li>
+                                <!-- <li class="row">                                      
+                                    <p class="w-s-i col col-70"> </p><p class="col-30">  {{orders.product.durationInDays ? orders.product.durationInDays+"Days" : " "}}</p> 
+                                </li> -->
+                            </ul>
+                            <ul ng-show="orders.productType == 'SERVICE'">
+                                <li class="row" ng-repeat="services in orders.product.services">                        
+                                    <p class="w-s-i col col-80">{{services.subCategory}} &nbsp;{{services.freeApplied ? "(Free Applied)" : " "}}{{services.quantity > 1 ? "("+services.quantity+" Items)" : ""}}</p> <p class="col-20" ><i class="fa fa-inr" aria-hidden="true"></i>&nbsp;<strike class="strike" ng-show="services.freeApplied">{{services.totalPrice }}</strike> <strong ng-hide="services.freeApplied"> {{services.effectivePrice}}</strong> </p>                           
+                                </li>
+                            </ul>                                 
+                        </ion-radio>
+                        <table class="cart-item-footer">
+                            <tr>
+                                <td class="col-50">
+                                    <span class="cart-price gsg-theme"> Price : <i class="fa fa-inr" aria-hidden="true"></i>&nbsp;{{orders.amount}} </span>
+                                </td>
+                                <td class="col-25 " ng-hide="orders.productType == 'SCHEME'">
+                                    <button class="button" ng-click="cartCtrl.openEditCartOrderModal(orders)">
+                                        <i class="icon ion-edit"></i>&nbsp;
+                                    </button>
+                                </td>
+                                <td class="col-25 ">
+                                    <button class="button cart-remove" ng-click="cartCtrl.removeFromCart(orders.id,orders.amount)">
+                                        <i class="icon ion-trash-b"></i>&nbsp;
+                                    </button>
+                                </td>
+                            </tr>
+                        </table>
+                    </ion-item>
+                </ion-list>
+            </ion-slide>
+            <ion-slide ion-slide-tab-label="ADD ONS" disable-scroll="false" >
+                <div ng-show="cartCtrl.cartAddOns.length == 0 || !cartCtrl.cartAddOns" class="cart-empty">
+                    <i class="icon ion-android-cart"> </i>
+                    <h3>NO ADD ONS YET</h3>
+                    
+                </div>
+                <ion-list ng-hide="cartCtrl.cartAddOns.length == 0 || !cartCtrl.cartAddOns">
+                    <ion-item class="cart-item" ng-repeat="orders in cartCtrl.cartAddOns" >
+                        <ion-radio style="margin :-2px;" class="gsg-theme" ng-model="cartCtrl.cartSelection" ng-value="orders" ng-change="cartCtrl.getTotalPrice(cartCtrl.cartSelection)">
+                            <h2 ng-show="orders.productType == 'SERVICE'">SERVICES{{orders.product.services.length ? "("+orders.product.services.length+" Items)" : ""}}</h2>
+                            <h2 ng-show="orders.productType == 'SCHEME'">SCHEME</h2><hr class="cart-hr">
+                            <ul  ng-show="orders.productType == 'SCHEME'">
+                                <li class="row">               
+                                    <p class="w-s-i col col-70"> SCHEME TYPE</p><p class="col-30">  {{orders.product.schemeType}}</p>                        
+                                </li>
+                                <li class="row">                
+                                    <p class="w-s-i col col-70"> SCHEME NAME</p><p class="col-30">  {{orders.product.description}}</p>                       
+                                </li>
+                                <li class="row">                                      
+                                    <p class="w-s-i col col-70"> VALIDITY</p><p class="col-30">  {{orders.product.durationInDays ? orders.product.durationInDays+"Days" : " "}}</p> 
+                                </li>
+                                <!-- <li class="row">                                      
+                                    <p class="w-s-i col col-70"> </p><p class="col-30">  {{orders.product.durationInDays ? orders.product.durationInDays+"Days" : " "}}</p> 
+                                </li> -->
+                            </ul>
+                            <ul ng-show="orders.productType == 'SERVICE'">
+                                <li class="row" ng-repeat="services in orders.product.services">                        
+                                    <p class="w-s-i col col-80">{{services.subCategory}} &nbsp;{{services.freeApplied ? "(Free Applied)" : " "}}{{services.quantity > 1 ? "("+services.quantity+" Items)" : ""}}</p> <p class="col-20" ><i class="fa fa-inr" aria-hidden="true"></i>&nbsp;<strike class="strike" ng-show="services.freeApplied">{{services.totalPrice }}</strike> <strong ng-hide="services.freeApplied"> {{services.effectivePrice}}</strong> </p>                           
+                                </li>
+                            </ul>                                 
+                        </ion-radio>
+                        <table class="cart-item-footer">
+                            <tr>
+                                <td class="col-50">
+                                    <span class="cart-price gsg-theme"> Price : <i class="fa fa-inr" aria-hidden="true"></i>&nbsp;{{orders.amount}} </span>
+                                </td>
+                                <td class="col-25 " ng-hide="orders.productType == 'SCHEME'">
+                                    <button class="button" ng-click="cartCtrl.openEditCartOrderModal(orders)">
+                                        <i class="icon ion-edit"></i>&nbsp;
+                                    </button>
+                                </td>
+                                <td class="col-25 ">
+                                    <button class="button cart-remove" ng-click="cartCtrl.removeFromCart(orders.id,orders.amount)">
+                                        <i class="icon ion-trash-b"></i>&nbsp;
+                                    </button>
+                                </td>
+                            </tr>
+                        </table>
+                    </ion-item>
+                </ion-list>
+            </ion-slide>
+        </ion-slide-box>
+    </ion-content>
+    <ion-footer-bar class="map-footer" ng-hide="cartCtrl.cartOrders.length == 0 && cartCtrl.cartAddOns.length == 0">
+        <span class="cart-price col-50 gsg-theme">Total Price : &nbsp; <i class="fa fa-inr" aria-hidden="true"></i>{{cartCtrl.totalPrice}}</span>
+            <button class="button button-block button-cart-continue col-40" ng-disabled="!cartCtrl.cartSelection" ng-click="cartCtrl.buyFromCart()" type="submit">CONTINUE</button>        
+    </ion-footer-bar>
+</ion-view>
+      

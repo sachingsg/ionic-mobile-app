@@ -1,0 +1,10 @@
+@media screen and (orientation:portrait) {
+    .home_container img{
+        margin-top:50%;
+    }
+}
+@media screen and (orientation:landscape) {
+    .home_container img{
+        margin-top:7%;
+    } 
+}

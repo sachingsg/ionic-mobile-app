@@ -1,0 +1,53 @@
+<ion-modal-view class="modal-request-details">
+        <ion-header-bar class="bar-energized modal-req-det-hed" >
+            <button class="button button-clear" ng-click="reqCtrl.closeREqDetailsModal()">
+                <i class="icon ion-android-close"></i>
+            </button>
+            <h1 class="title">Request Details</h1>
+        </ion-header-bar>
+        <ion-content class="whitesmoke">      
+                <ion-item class="whitesmoke">
+                    <h2>ORDER ID - {{reqCtrl.requestDetails.orderId}}</h2>
+                    <p class="span-text w-s-i"><h4>SERVICE DATE - {{reqCtrl.requestDetails.serviceDate}}</h4></p>
+                    <hr>
+                    <span class="span-text" ng-hide="!reqCtrl.requestDetails.orderDtls[0].product.usrVehicle.vehicle.make">
+                            <p class="w-s-i"> VEHICLE - {{!reqCtrl.requestDetails.orderDtls[0].product.usrVehicle.vehicle.make ? " " :reqCtrl.requestDetails.orderDtls[0].product.usrVehicle.vehicle.make}} {{!reqCtrl.requestDetails.orderDtls[0].product.usrVehicle.vehicle.models == 'null' ? " ": reqCtrl.requestDetails.orderDtls[0].product.usrVehicle.vehicle.models}} {{!reqCtrl.requestDetails.orderDtls[0].product.usrVehicle.registrationNumber == 'null' ? " ": reqCtrl.requestDetails.orderDtls[0].product.usrVehicle.registrationNumber}}</p>
+                            <hr>
+                    </span>
+                    <div ng-repeat="orders in reqCtrl.requestDetails.orderDtls">
+                            <h3 class="popular-city">Order({{$index+1}})</h3>
+                            <hr class="m-r-25 m-t-10" ng-hide="services.length == 0"><br>
+                            <span class="span-text row" ng-show="reqCtrl.requestDetails.produtType == 'EMERGENCY' && orders.product.services.length == 0" ><strong><p> This is an EMERGENCY order.</p></strong></span>                                   
+                            <span class="span-text row" ng-show="reqCtrl.requestDetails.produtType == 'EMERGENCY' && !reqCtrl.requestDetails.orderDtls[1]" ><strong><p> Please contact your service engineer to add new services if require</p></strong></span>                                   
+                            <span class="span-text row" ng-show="reqCtrl.requestDetails.produtType == 'EMERGENCY' && reqCtrl.requestDetails.orderDtls[1] && $index == 0" ><strong><p> New Services added to this request by service engineer</p></strong></span>                                   
+                        
+                            <span class="span-text row" ng-hide="orders.product.services.length == 0"  ng-repeat="services in orders.product.services">
+                                <p class="w-s-i col col-70"> {{services.subCategory}}&nbsp;{{services.freeApplied ? "(Free Applied)" : " "}}{{services.quantity > 1 ? "("+services.quantity+" Items)" : ""}}</p> <p class="col-30"><i class="fa fa-inr" aria-hidden="true"></i>&nbsp; <strike class="strike" ng-show="services.freeApplied"> {{services.totalPrice}}</strike> <strong ng-hide="services.freeApplied">{{services.effectivePrice}}</strong></p>
+                       
+                        </span><hr class="m-r-25" ng-hide="orders.product.services.length == 0">
+                        <span class="span-text">
+                                <span class="span-text row" ng-hide="orders.product.services.length == 0" ><p class="w-s-i col col-70"> <b> Total price</b> </p><p class="col-30">  <i class="fa fa-inr" aria-hidden="true"></i>&nbsp; <b>{{orders.calculatedPrice}}</b> </p></span>    
+                                <!-- <span class="span-text row" ng-hide="orders.product.services.length == 0"><p class="col col-70"> CGST </p><p class="col-30"><i class="fa fa-inr" aria-hidden="true"></i>&nbsp;<b>{{orders.totalGst/2 | number}} </b></p></span>
+                                <span class="span-text row" ng-hide="orders.product.services.length == 0"><p class="col col-70"> SGST </p><p class="col-30"><i class="fa fa-inr" aria-hidden="true"></i>&nbsp;<b>{{orders.totalGst/2 | number}} </b></p></span>
+                        <hr ng-hide="orders.product.services.length == 0">
+                        <span class="span-text row" ng-hide="orders.product.services.length == 0"><p class="col col-70"><strong>  Total </strong> </p><p class="col-30"><i class="fa fa-inr" aria-hidden="true"></i>&nbsp;<b>{{orders.payableAmount}} </b></p></span> -->
+                        <!-- <span class="span-text w-s-i m-b-5">
+                                (NB : Price inclusive of all taxes)
+                        </span> -->
+                            <span class="span-text row" ng-hide="!orders.transactionMode || orders.transactionMode == 'NA'"><p class="w-s-i col col-70"> Payment Mode </p><p class="col-30"> {{orders.transactionMode}}</p></span>    
+                            <span class="span-text row"  ng-hide="!orders.transactionStatus || orders.transactionStatus == 'NA' || orders.transactionMode == 'NA'"><p class="w-s-i col col-70"> Payment Status </p><p class="col-30">{{orders.transactionStatus}}</p></span>    
+                            <span class="span-text row"  ng-show="orders.transactionStatus == 'COMPLETED' && orders.transactionDate"><p class="w-s-i col col-70">  Payment Date </p><p class="col-30">{{orders.transactionDate}}</p></span>    
+                           
+                        </span>
+                       
+                    </div>
+                </ion-item>                     
+        </ion-content>
+        <ion-footer-bar class="map-footer req-modal-ftr-btn" ng-show="reqCtrl.requestDetails.requestStatus == 'CLOSED'">
+            <div class="button-bar">
+                <a class="button req-modal-ftr-btn" ng-click="reqCtrl.openRatingModal(reqCtrl.requestDetails.orderId)"> <i class="icon ion-android-favorite red"></i> Rate us</a>
+                <a class="button req-modal-ftr-btn" ng-click="reqCtrl.mailToInbox(reqCtrl.requestDetails.orderId)"> <i class="icon ion-android-mail"></i> Mail Invoice</a>
+           </div>
+           
+        </ion-footer-bar>
+    </ion-modal-view>

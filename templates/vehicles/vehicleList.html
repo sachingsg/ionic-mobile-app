@@ -1,0 +1,55 @@
+<ion-view cache-view="false" view-title="My Vehicles" ng-init="vehicleCtrl.getVehicleList()">
+    <ion-nav-buttons side="left">
+        <button class="back-button" ui-sref="app.mapView">
+          <i class="icon ion-chevron-left"></i> 
+        </button>
+    </ion-nav-buttons>
+    <ion-content class="whitesmoke">
+        <div class="popular-query" ng-hide="vehicleCtrl.vehicleList.length == 0">
+                <h3 class="popular-city">Added Vehicles</h3>
+        </div>
+        <div ng-show="vehicleCtrl.vehicleList.length == 0|| !vehicleCtrl.vehicleList" class="cart-empty">
+                <i class="icon ion-model-s"> </i>
+                <h3> NO VEHICLES ADDED</h3>
+                <butt>
+            </div>
+        <ion-list>
+            <div ng-repeat="item in vehicleCtrl.vehicleList">
+                <ion-item class="item-stable query-list"
+                        ng-click="vehicleCtrl.toggleGroup(item)"
+                        ng-class="{active: vehicleCtrl.isGroupShown(item)}">
+                    <!-- <i class="icon" ng-class="vehicleCtrl.isGroupShown(item) ? 'ion-chevron-up' : 'ion-chevron-down'"></i> -->
+                &nbsp;
+                <div class="vehicle_list">
+                    
+                    <!-- <img class="vehicle_image" src=""> -->
+                    <p class="vehicle_name"> {{item.vehicle.make}}  {{item.registrationNumber}}  </p>
+                </div>
+                </ion-item>
+                <ion-item class="item-accordion"
+                    ng-show="vehicleCtrl.isGroupShown(item)">
+                   <div class="vehicle_description">
+                        {{item.vehicle.make}}  {{item.vehicle.models}} {{item.mfgYear == 0 ? " " : item.mfgYear }}
+                        <hr>                       
+                        <span class="span-text row"  ng-show="item.registrationNumber"><p class="w-s-i col col-60">  Vehicle No</p>  <p class="col-40">{{item.registrationNumber}}  </p></span>
+                        <span class="span-text row"  ng-show="item.vehicle.wheels"><p class="w-s-i col col-60" >  Wheel type </p>  <p class="col-40">{{item.vehicle.wheels}} Wheeler</p></span>                        
+                        <span class="span-text row" ng-show="item.variant"><p class="w-s-i col col-60" >Colour Variant  </p>  <p class="col-40">{{item.variant}} </p></span>                
+                        <span class="span-text row"  ng-show="item.modelVersion"><p class="w-s-i col col-60">  Version </p>  <p class="col-40">{{item.modelVersion}}  </p></span>
+                        <span class="span-text row"  ng-hide="item.cubicCapacity == 0"><p class="w-s-i col col-60">  Cubic Capacity  </p>  <p class="col-40">{{item.cubicCapacity ? item.cubicCapacity+"CC" : "N/A" }}  </p></span>
+                        <span class="span-text row"><p class="w-s-i col col-60">  Insurance Availability  </p>  <p class="col-40">{{item.insuranceValid ? "Yes" : "No"}}  </p></span>
+                        <span class="span-text row"  ng-show="item.insuranceType"><p class="w-s-i col col-60">  Insurance Type  </p>  <p class="col-40"> {{item.insuranceType}}  </p></span>
+                        <span class="span-text row"  ng-show="item.expiryDate"><p class="w-s-i col col-60" >  Expiry Date  </p>  <p class="col-40">{{item.expiryDate}}  </p></span>
+                   </div>
+                   <button class="button button-positive vehicle_button" type="submit" ng-click="vehicleCtrl.deleteVehicle($index)">Delete</button>
+                   <button class="button button-positive vehicle_button float-right" type="submit" ng-click="vehicleCtrl.updateVehicle(item,$index)">Update</button>
+                </ion-item>
+            </div>
+        </ion-list>
+        
+
+    </ion-content>
+    <ion-footer-bar class="map-footer" >
+        <button class="button button-block button-map" ui-sref="add-vehicle" type="submit">ADD NEW VEHICLE</button>        
+    </ion-footer-bar>
+</ion-view>
+  

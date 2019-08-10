@@ -1,0 +1,162 @@
+<ion-view cache-view="false" view-title="My Profile" ng-init="profileCtrl.getLoginUserDetails()">
+    
+    <ion-nav-buttons side="right">
+      </ion-nav-buttons>
+      <ion-nav-buttons side="left">
+        <button class="back-button" ui-sref="app.mapView">
+          <i class="icon ion-chevron-left"></i> 
+        </button>
+      </ion-nav-buttons>
+      <form class="form-horizontal" name="updateProfile">
+    <ion-content class="profile_content">
+            <div class="profile_head">
+                <div class="myprofile">                    
+                    <img ng-src="{{profileCtrl.profile_image}}" ng-click="profileCtrl.openImage()"/>
+                    <a class="ion-ios-camera camera_profile" href="" ng-click="profileCtrl.showOptions()"></a>
+                </div>
+                  <h4>{{profileCtrl.userUpdate.firstName }} {{(profileCtrl.userUpdate.middleName == "null" || profileCtrl.userUpdate.middleName == null || !profileCtrl.userUpdate.middleName)? " " : profileCtrl.userUpdate.middleName }} {{profileCtrl.userUpdate.lastName}}</h4>
+                  <h5>{{profileCtrl.userUpdate.contactNbr}}</h5>
+                  <h5>{{profileCtrl.userUpdate.email}}</h5>
+                </div>
+                  <hr>
+                  <div class="list">
+                   
+                      <label class="profile-form item-floating-label" ng-class="{'has-error':updateProfile.first_name.$touched && updateProfile.first_name.$invalid}">
+                        <span class="input-label col col-100">First Name*</span>
+                        <input type="text" name="first_name" placeholder="First Name" ng-model="profileCtrl.userUpdate.firstName" ng-pattern="/^[A-Za-z\s]+$/" >
+                      </label>
+                        <span class="error-message" ng-show="updateProfile.first_name.$error.required && updateProfile.first_name.$touched" >Please enter your Firstname</span>
+                        <span class="error-message" ng-show="updateProfile.first_name.$error.pattern && updateProfile.first_name.$touched" >Invalid firstname(Only alphabets allowed)</span>                             
+                      <label class="profile-form item-floating-label" ng-class="{'has-error':updateProfile.middle_name.$touched && updateProfile.middle_name.$invalid}">
+                        <span class="input-label col col-100">Middle name</span>
+                        <input type="text" name="middle_name" placeholder="Middle Name" ng-model="profileCtrl.userUpdate.middleName" ng-pattern="/^[A-Za-z\s]+$/">
+                      </label>
+                        <!-- <span class="error-message" ng-show="updateProfile.middle_name.$error.required && updateProfile.middle_name.$touched" >Please enter your middlename</span> -->
+                        <!-- <span class="error-message" ng-show="updateProfile.middle_name.$error.pattern && updateProfile.middle_name.$touched" >Invalid middlename(Only alphabets allowed)</span>                       -->
+                      <label class="profile-form item-floating-label" ng-class="{'has-error':updateProfile.last_name.$touched && updateProfile.last_name.$invalid}">
+                        <span class="input-label col col-100">Last Name*</span>
+                        <input type="text" name="last_name" placeholder="Last Name*" ng-model="profileCtrl.userUpdate.lastName" ng-pattern="/^[A-Za-z\s]+$/" >
+                      </label>
+                        <span class="error-message" ng-show="updateProfile.last_name.$error.required && updateProfile.last_name.$touched" >Please enter your Lastname</span>
+                        <span class="error-message" ng-show="updateProfile.last_name.$error.pattern && updateProfile.last_name.$touched" >Invalid lastname(Only alphabets allowed)</span>                             
+                      <label class="profile-form item-floating-label" ng-class="{'has-error':updateProfile.email.$touched && updateProfile.email.$invalid}">
+                        <span class="input-label col col-100">Email*</span>
+                        <input type="text" name="email" placeholder="Email*" ng-model="profileCtrl.userUpdate.email" ng-pattern="/^[A-Za-z]+[a-z0-9._]+@[a-z0-9]+\.[a-z.]{2,10}$/" >
+                      </label>
+                        <span class="error-message" ng-show="updateProfile.email.$error.required && updateProfile.email.$touched" >Please enter your Email</span>
+                        <span class="error-message" ng-show="updateProfile.email.$error.pattern && updateProfile.email.$touched">Invalid Email</span>                             
+                      <label class="profile-form item-floating-label" ng-class="{'has-error':updateProfile.mobile.$touched && updateProfile.mobile.$invalid}">
+                        <span class="input-label col col-100">Contact number*</span>
+                        <input type="text" name="mobile" placeholder="Contact number*" readonly ng-model="profileCtrl.userUpdate.contactNbr" ng-pattern="/^(\+\d{1,3}[- ]?)?\d{10}$/" >
+                      </label>
+                      <label class="profile-form item-floating-label" ng-class="{'has-error':updateProfile.alter_mobile.$touched && updateProfile.alter_mobile.$invalid}">
+                        <span class="input-label col col-100">Alternative Contact number(optional)</span>
+                        <input type="text" name="alter_mobile" placeholder="Alternative Contact number(optional)" ng-model="profileCtrl.userUpdate.altenateContactNbr" ng-pattern="/^(\+\d{1,3}[- ]?)?\d{10}$/" >
+                      </label>
+                        <span class="error-message" ng-show="updateProfile.alter_mobile.$error.pattern && updateProfile.alter_mobile.$touched">Invalid Contact number</span>                             
+                      <div class="row">               
+                          <label class="profile-form item-floating-label  col col-50">
+                              <span class="input-label col col-100">DOB</span>
+                              <input type="text" name="dob" placeholder="DOB" readonly ng-model="profileCtrl.userUpdate.dob" ng-click="profileCtrl.openDob()">
+                              <!-- <ionic-datepicker date="currentDate.currentDate" min="minDate" max="maxDate" callback="dobPickerCallback">
+                                 <input type="text" name="dob" placeholder="DOB" ng-model="profileCtrl.userUpdate.dob" >
+                              </ionic-datepicker> -->
+                          </label>
+                          <label class="profile-form item-floating-label col col-50">
+                            <span class="input-label col col-100">Gender*</span>
+                            <select class="" name="gender" ng-model="profileCtrl.userUpdate.gender" >
+                                <option value=""><i class="fa fa-sort-desc">Gender</i></option>
+                                <option value="M">Male</option>
+                                <option value="F">Female</option>
+                                <option value="O">Others</option>
+                            </select>  
+                          </label>
+                      </div>
+                      <span class="error-message" ng-show="updateProfile.gender.$error.required && updateProfile.gender.$touched" >Please enter your Gender</span>
+                        <label class="profile-form item-floating-label" ng-class="{'has-error':updateProfile.marital_status.$touched && updateProfile.marital_status.$invalid}">
+                            <span class="input-label col col-100">Marital Status*</span>
+                            <select class="" name="marital_status" ng-model="profileCtrl.userUpdate.maritalStatus">
+                                <option value=""><i class="fa fa-sort-desc">MARITAL STATUS</i></option>
+                                <option value="1">Married</option>
+                                <option value="0">Unmarried</option>
+                            </select>                 
+                        </label>
+                        <label class="profile-form item-floating-label" ng-if="profileCtrl.userUpdate.maritalStatus =='1'" ng-class="{'has-error':updateProfile.anniversary.$touched && updateProfile.anniversary.$invalid}">
+                          <span class="input-label col col-100">Anniversary date</span>  
+                          <input type="text" name="anniversary" ng-model="profileCtrl.userUpdate.anniversaryDate" readonly placeholder="Anniversary date" ng-click="profileCtrl.openAnni()">
+                          <!-- <ionic-datepicker date="currentDate.currentDate" min="minDate" max="maxDate" callback="anniversaryPickerCallback">
+                            <input type="text" name="anniversary" ng-model="profileCtrl.userUpdate.anniversaryDate" placeholder="Anniversary date" disabled >
+                          </ionic-datepicker> -->
+                        </label>
+                       <span class="error-message" ng-show="updateProfile.anniversary.$error.required && updateProfile.anniversary.$touched">Please enter anniversary date</span>
+                        <div class="popular-query">
+                            <h3 class="popular-city">Address details</h3>
+                        </div>
+                        <label class="profile-form item-floating-label" ng-class="{'has-error':updateProfile.houseNbr.$touched && updateProfile.houseNbr.$invalid}">
+                            <span class="input-label col col-100">House no., Building name</span>
+                            <input type="text" class="col col-100" placeholder="House no., Building name" name="houseNbr" ng-model="profileCtrl.userUpdate.address[0].houseNbr">
+                        </label>
+                        <!-- <span class="error-message" ng-show="updateProfile.houseNbr.$error.pattern && updateProfile.houseNbr.$touched">Invalid House no. or Building name</span>                              -->
+                        <label class="profile-form item-floating-label" ng-class="{'has-error':updateProfile.locality.$touched && updateProfile.locality.$invalid}">
+                            <span class="input-label col col-100">Locality,area or street</span>
+                            <input type="text" class="col col-100" placeholder="Locality,area or street" name="locality" ng-model="profileCtrl.userUpdate.address[0].locality" >
+                        </label>
+                        <span class="error-message" ng-show="updateProfile.locality.$error.pattern && updateProfile.locality.$touched">Invalid Locality, Area or Street</span>                             
+                        <label class="profile-form item-floating-label" ng-class="{'has-error':updateProfile.city.$touched && updateProfile.city.$invalid}">
+                            <span class="input-label col col-100">City*</span>
+                            <input type="text" class="col col-100" placeholder="City*" name="city" ng-model="profileCtrl.userUpdate.address[0].city"  >
+                        </label>
+                        <!-- <span class="error-message" ng-show="updateProfile.city.$error.required && updateProfile.city.$touched">Please enter your City</span>                              -->
+                        <span class="error-message" ng-show="updateProfile.city.$error.pattern && updateProfile.city.$touched">Invalid City</span>                             
+                        <div class="row" ng-init="profileCtrl.getAllStates()">
+                          <label class="profile-form item-floating-label col col-50"  ng-class="{'has-error':updateProfile.state.$touched && updateProfile.state.$invalid}">
+                              <span class="input-label col col-100">State*</span>                             
+                              <select class="col col-100" name="state" ng-model="profileCtrl.userUpdate.address[0].state" ng-change="profileCtrl.getDistrict(profileCtrl.userUpdate.address[0].state)">
+                                <option value="" ng-selected><i class="fa fa-sort-desc">State</i></option>
+                                <option ng-value="states.stateCd" ng-repeat="states in profileCtrl.stateList" >{{states.stateCd}}</option>
+                              </select>
+                          
+                          </label>
+                          <label class="profile-form item-floating-label col col-50"  ng-class="{'has-error':updateProfile.district.$touched && updateProfile.district.$invalid}">
+                            <span class="input-label col col-100">District*</span>
+                            <select class="col col-100" name="district" ng-model="profileCtrl.userUpdate.address[0].district">
+                              <option value="" ><i class="fa fa-sort-desc">District</i></option>
+                              <option ng-value="districts" ng-repeat="districts in profileCtrl.districtList" >{{districts}}</option>
+                            </select>
+                          
+                          </label>
+                        </div>
+                          <!-- <span class="error-message" ng-show="updateProfile.state.$error.required && updateProfile.state.$touched" >Please enter your State</span> -->
+                          <span class="error-message" ng-show="updateProfile.state.$error.pattern && updateProfile.address.state.$touched">Invalid State name</span>                             
+                          <!-- <span class="error-message" ng-show="updateProfile.district.$error.required && updateProfile.district.$touched" >Please enter your District</span> -->
+                          <span class="error-message" ng-show="updateProfile.district.$error.pattern && updateProfile.district.$touched">Invalid District</span>                             
+                         
+                        <div class="row">
+                            <label class="profile-form item-floating-label col col-50"  ng-class="{'has-error':updateProfile.country.$touched && updateProfile.country.$invalid}">
+                              <span class="input-label col col-100">Country*</span>
+                              <input type="text" class="col col-100" placeholder="Country" name="country" ng-model="profileCtrl.userUpdate.address[0].country" name="country" ng-pattern="/^[A-Za-z]+$/" >
+                            </label>
+                            <label class="profile-form item-floating-label col col-50" ng-class="{'has-error':updateProfile.zip_code.$touched && updateProfile.zip_code.$invalid}">
+                              <span class="input-label col col-100">Zip code*</span>
+                              <input type="text" class="col col-100" placeholder="Zip code" ng-model="profileCtrl.userUpdate.address[0].zip" name="zip_code" ng-pattern="/^(\+\d{1,3}[- ]?)?\d{6}$/" >
+                            </label>
+                          </div>
+                          <span class="error-message" ng-show="updateProfile.zip_code.$error.required && updateProfile.zip_code.$touched" >Please enter your Zip code</span>
+                          <span class="error-message" ng-show="updateProfile.zip_code.$error.pattern && updateProfile.zip_code.$touched">Invalid Zip code</span>                             
+                         
+                          <span class="error-message" ng-show="updateProfile.country.$error.required && updateProfile.country.$touched" >Please enter your Country name</span>
+                          <span class="error-message" ng-show="updateProfile.country.$error.pattern && updateProfile.country.$touched">Invalid Country name</span>                             
+                      
+
+                  </div>
+                 
+                  
+              
+    </ion-content>
+ 
+    <ion-footer-bar class="map-footer" >
+        <button class="button button-block button-map" ng-disabled="updateProfile.$invalid" ng-click="profileCtrl.updateProfile()" type="submit">UPDATE</button>        
+    </ion-footer-bar>
+   </form>
+</ion-view>
+  

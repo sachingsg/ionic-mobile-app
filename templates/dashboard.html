@@ -1,0 +1,38 @@
+<ion-view cache-view="false" view-title="Dashboard" ng-init="tlCtrl.getTickets()" >
+    <ion-nav-buttons side="left">
+        <button class="back-button" ui-sref="app.mapView">
+          <i class="icon ion-chevron-left"></i> 
+        </button>
+    </ion-nav-buttons>
+    <ion-content class="gsg_main_container">
+            <ion-refresher pulling-text="Pull and leave to refresh..." on-refresh="tlCtrl.getTickets()"></ion-refresher>
+        <div class="plan_list" >
+            <div class="plan_item w-98" ui-sref="app.onboarding">
+                <span class="plan">Initiate Workshop Onboarding</span>
+                    <!-- <span class="ticket-count">{{tlCtrl.closedTicketArr.length}}</span> -->
+            </div>           
+            <div class="plan_item w-98" ui-sref="app.ticketList({st:'NEW'})">
+                <span class="plan">New Requests</span>
+                <span class="ticket-count">{{tlCtrl.newTicketsArr.length}}</span>
+            </div>
+            <div class="plan_item w-98" ui-sref="app.ticketList({st:'WIP'})">
+                <span class="plan">Work In Progress Requests</span>
+                <span class="ticket-count">{{tlCtrl.wipTicketsArr.length}}</span>
+            </div>
+            <div class="plan_item w-98" ui-sref="app.ticketList({st:'RESOLVED'})">
+                <span class="plan">Resolved Requests</span>
+                <span class="ticket-count">{{tlCtrl.resolvedTicketArr.length}}</span>
+            </div>
+            <div class="plan_item w-98" ui-sref="app.ticketList({st:'REJECTED'})">
+                <span class="plan">Rejected Requests</span>
+                <span class="ticket-count">{{tlCtrl.rejecteddTicketArr.length}}</span>
+            </div>                                
+            <div class="plan_item w-98" ui-sref="app.ticketList({st:'CLOSED'})">
+                <span class="plan">Completed Requests</span>
+                <span class="ticket-count">{{tlCtrl.closedTicketArr.length}}</span>
+            </div>                                
+                                           
+        </div> 
+    </ion-content>
+</ion-view>
+  

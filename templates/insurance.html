@@ -1,0 +1,29 @@
+<ion-view hide-nav-bar="true" cache-view="false">
+    <ion-content class="gsg_main_container">
+        <div class="gsg_login">
+            <div class="banner_logo">
+                <img src="img/logo3.png" alt="">
+            </div>
+            <div>
+                <form name="insuranceDetail">
+                    <label class="item item-input col">
+                        <select class="" name="status" ng-model="loginCtrl.insuranceDetails.status" required>
+                            <option value=""><i class="fa fa-sort-desc">Insurance Status</i></option>
+                            <option value="1">Active</option>
+                            <option value="0">Expired</option>
+                        </select>
+                    </label>
+                    <span class="plain-text row" ng-show="insuranceDetail.status.$error.required && insuranceDetail.status.$touched">Insurance status is required</span>
+                    <label class="item item-input col" ng-if="loginCtrl.insuranceDetails.status == '1'">
+                        <input type="text" class="" name="expiry_date" placeholder="Expiry Date" ng-model="loginCtrl.insuranceDetails.expiry_date" datepicker-popup="dd MMM, yyyy" datepicker-options="dateOptions"  is-open="opened"  max-date="dt"  ng-click="open1($event)" close-text="Close" required/>
+                    </label> 
+                    <span class="plain-text row" ng-show="insuranceDetail.expiry_date.$error.required && insuranceDetail.expiry_date.$touched">Expiry date is required</span> 
+                    <label class="item item-input col">
+                        <input type="text" class="" name="insurance_type" placeholder="Insurance type" ng-model="loginCtrl.insuranceDetails.type"/>
+                    </label> 
+                    <button class="button button-block button-positive" type="submit" ng-disabled="insuranceDetail.$invalid" ng-click="loginCtrl.addInsuranceDetails()">SAVE DETAILS</button>               
+                </form>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

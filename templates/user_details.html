@@ -1,0 +1,52 @@
+<ion-view cache-view="false" hide-nav-bar="true">
+    <ion-content class="gsg_main_container">
+        <div class="gsg_login">
+            <div class="banner_logo">
+                <img src="img/logo3.png" alt="">
+            </div>
+            <div>
+                <form name="userDetail">
+                    <label class="item item-input">
+                        <input type="text" name="fname" ng-model="userCtrl.userDetails.firstName" placeholder="Firstname" ng-pattern="/^[A-Za-z\s]+$/" required>
+                    </label> 
+                        <span class="plain-text row" ng-show="userDetail.fname.$error.required && userDetail.fname.$touched">Please Enter your firstname</span>
+                        <span class="plain-text row" ng-show="userDetail.fname.$error.pattern && userDetail.fname.$touched">Firstname is invalid(Only Alphabets allowed)</span>                    
+                    <label class="item item-input">
+                        <input type="text" name="lname" ng-model="userCtrl.userDetails.lastName" placeholder="Lastname" ng-pattern="/^[A-Za-z\s]+$/" required>
+                    </label>
+                        <span class="plain-text" ng-show="userDetail.lname.$error.required && userDetail.lname.$touched">Please Enter your lastname</span>
+                        <span class="plain-text" ng-show="userDetail.lname.$error.pattern && userDetail.lname.$touched">Lastname is invalid(Only Alphabets allowed)</span>                         
+                    <div class="row" >
+                        <label class="item item-input col col-50">
+                            <select class="" name="gender" ng-model="userCtrl.userDetails.gender" required>
+                                <option value=""><i class="fa fa-sort-desc">Gender</i></option>
+                                <option value="M">Male</option>
+                                <option value="F">Female</option>
+                                <option value="O">Others</option>                             
+                            </select>                 
+                        </label>
+                        
+                        <label class="item item-input col col-50">
+                            <input type="text" class="" name="dob" placeholder="DOB" ng-model="userCtrl.userDetails.dateOfBirth" datepicker-popup="dd MMM, yyyy" datepicker-options="dateOptions"  is-open="opened"  max-date="dt"  ng-click="open1($event)" close-text="Close"/>
+                        </label>                   
+                    </div>
+                    <span class="plain-text row" ng-show="userDetail.gender.$error.required && userDetail.gender.$touched">Gender is required</span>
+                    <label class="item item-input col">
+                        <select class="" name="marital_status" ng-model="userCtrl.userDetails.maritalStatus" required >
+                            <option value=""><i class="fa fa-sort-desc">Marital Status</i></option>
+                            <option value="1">Married</option>
+                            <option value="0">Unmarried</option>
+                            <!-- <option value="others">Others</option>                              -->
+                        </select>                 
+                    </label>
+                    <span class="plain-text row" ng-show="userDetail.marital_status.$error.required && userDetail.marital_status.$touched">Please enter marital status</span>
+                        <label class="item item-input" ng-if="userCtrl.userDetails.maritalStatus =='1'">
+                            <input type="text" name="anniversary" ng-model="userCtrl.userDetails.anniversaryDate" placeholder="Anniversary Date" >
+                        </label> 
+                    <button class="button button-block button-positive" type="submit" ng-disabled="userDetail.$invalid" ng-click="userCtrl.addUserDetails()">ADD DETAILS</button>               
+                </form>
+            </div>
+        </div>      
+    </ion-content>
+</ion-view>
+  

@@ -1,0 +1,35 @@
+<ion-view cache-view="false" view-title="GoSpeedyGo" ng-init="mapCtrl.checkUpdateVersion()" >
+     <ion-nav-buttons side="right">
+         <i class="icon ion-android-cart cart-icon" ui-sref="app.cart"></i>
+         <span class="_2tVMo0" ng-init="mapCtrl.myCartOrders()" ng-hide="mapCtrl.cartOrders.length == 0 || !mapCtrl.cartOrders">{{mapCtrl.cartOrders.length}}</span>
+      </ion-nav-buttons>
+    <ion-content class="has-footer" scroll="false" ng-init="mapCtrl.mapInit()">
+        <div id="map"></div>
+        <div class="list map-search">
+            <label class="item item-location" location-suggestion on-select="changeLocation(latlang)">
+                <span><i class="icon ion-record icon-pickup"></i>Pick up Location</span><br>
+                <span>{{mapCtrl.location.formatted_address}}</span>
+            </label>
+        </div>
+        <!-- <button class="current-location" type="submit" >need help</button> -->
+        <button class="current-location" type="submit" ng-click="mapCtrl.mapInit()"><i class="icon ion-android-locate"></i></button>
+    </ion-content>
+    
+    <ion-floating-button click="mapCtrl.confirmEmegReq()" class="extra-width" has-footer="true" button-color="#73b717" icon="ion-ios-redo" icon-color="#fff" text="Need Help ?"></ion-floating-button>
+     
+    <ion-footer-bar  class="map-footer">
+        <!-- <button class="button button-block button-map" type="submit">EMERGENCY REQUEST</button>    -->
+        <div class="footer-option" ng-controller="ServiceController as srvcCtrl">
+                <ul class="service-list">            
+                    <li ng-click="srvcCtrl.workshopList()"><h5>List <br/>View</h5></li>
+                    <li ng-click="srvcCtrl.servicesLeft('MAJOR')"><h5>Major<br>Services</h5></li>
+                    <li ng-click="srvcCtrl.servicesLeft('MINOR')"><h5>Minor<br>Services</h5></li>
+                    <li ng-click="srvcCtrl.servicesLeft('RA')" ><h5>Roadside<br>Assistance</h5></li>
+                     <li ng-click="srvcCtrl.serviceSearch('all')" >                
+                            <i class="icon ion-search"></i>                  
+                     </li>
+                </ul> 
+            </div>   
+    </ion-footer-bar>
+</ion-view>
+  

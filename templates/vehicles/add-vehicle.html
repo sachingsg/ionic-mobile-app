@@ -1,0 +1,88 @@
+<ion-view cache-view="false" view-title="Add Vehicles" ng-init="vehicleCtrl.getVehicledata()">
+    <ion-nav-buttons side="left">
+        <button class="back-button" ui-sref="app.vehicles">
+            <i class="icon ion-chevron-left"></i> 
+        </button>
+    </ion-nav-buttons>
+    <form name="addVehicle">
+    <ion-content  class="gsg_main_container"   ng-init="vehicleCtrl.getMfgYear()">         
+        <div class="gsg_login">
+            <div style="margin-top: -19px;">
+              
+                    <div class="list">
+                        <label class="item item-input col">
+                            <select class="" name="maker_of_vehicle" ng-model="vehicleCtrl.vehicle.make" ng-options="makes as makes for makes in vehicleCtrl.makes" ng-change="vehicleCtrl.getModel(vehicleCtrl.vehicle.make)" required>
+                                <option value=""><i class="fa fa-sort-desc">Vehicle Manufacturer</i></option>
+                                <!-- <option ng-value="vehicles.make" ng-repeat="vehicles in vehicleCtrl.vehicleMakeList" >{{vehicles.make}}</option> -->
+                           </select>                 
+                        </label>
+                        <span class="plain-text row" ng-show="addVehicle.maker_of_vehicle.$error.required && addVehicle.maker_of_vehicle.$touched">Please choose a maker</span>
+                        <label class="item item-input">
+                            <input type="text" name="vehicle_no" ng-model="vehicleCtrl.vehicle.registrationNumber" placeholder="Vehicle No" required>
+                        </label> 
+                        <span class="plain-text row" ng-show="addVehicle.vehicle_no.$error.required && addVehicle.vehicle_no.$touched">Please enter the vehicle no</span>
+                        <div class="vehicle row" >
+                            <label class="item item-input col col-50">
+                                <select class="" name="model" ng-model="vehicleCtrl.vehicle.model" ng-options="models as models for models in vehicleCtrl.vehicleModelList" ng-change="vehicleCtrl.getVehicleType(vehicleCtrl.vehicle.model)" required>
+                                    <option value=""><i class="fa fa-sort-desc">Model</i></option>
+                                    <!-- <option ng-value="models.models" ng-repeat="models in vehicleCtrl.vehicleModelList" >{{models.models}}</option> -->
+                                                               
+                                </select>                 
+                            </label>
+                            <label class="item item-input col-50">
+                                <input type="text" class="" name="varient" placeholder="Variant" ng-model="vehicleCtrl.vehicle.variant" />
+                            </label>
+                        </div>
+
+                        <span class="plain-text m-t-5" ng-show="addVehicle.model.$error.required && addVehicle.model.$touched">Please enter the vehicle model</span>
+                        <div class="vehicle row" >
+                            <label class="item item-input col col-50">
+                                    <input type="text" class="" name="version" placeholder="Model Version" ng-model="vehicleCtrl.vehicle.modelVersion" />
+                            </label>
+                            <label class="item item-input col-50">
+                                <input type="number" class="" name="cc" placeholder="Cubic capacity" ng-model="vehicleCtrl.vehicle.cubicCapacity" />
+                            </label>
+                        </div>
+                        <span class="plain-text row m-t-5" ng-show="addVehicle.cc.$error.pattern && addVehicle.cc.$touched">Cubic capacity should be numeric</span>
+                        <label class="item item-input">
+                            <select class="" name="manufacturing_year" ng-model="vehicleCtrl.vehicle.mfgYear" ng-options="years as years for years in vehicleCtrl.mfgYearArr">
+                                <option value="">Manufacturing year</option>
+                            </select>   
+                        </label>                        
+                        <label class="item item-input">
+                            <select class="insurance" name="insurance_status" ng-model="vehicleCtrl.vehicle.insuranceValid" ng-options="status as status == true?'Active':'Expired' for status in vehicleCtrl.insuranceArr" required>
+                                  <option value="">Vehicle Insurance Status</option>
+                                                               
+                            </select>                 
+                        </label>
+                        <span class="plain-text row" ng-show="addVehicle.insurance_status.$error.required && addVehicle.insurance_status.$touched">Insurance status is required</span>
+                        <label class="item item-input col" ng-if="vehicleCtrl.vehicle.insuranceValid == true">
+                            <input type="text" name="expiry_date" placeholder="Expiry Date" ng-model="vehicleCtrl.vehicle.expiryDate" readonly ng-click="vehicleCtrl.setExpiry()">
+                            <!-- <ionic-datepicker date="currentDate.currentDate" min="minDate" max="maxDate" callback="insExpPickerCallback">
+                                <input type="text" name="expiry_date" placeholder="Expiry Date" ng-model="vehicleCtrl.vehicle.expiryDate">
+                            </ionic-datepicker> -->
+                        </label> 
+                        <!-- <span class="plain-text row" ng-show="addVehicle.expiry_date.$error.required && addVehicle.expiry_date.$touched">Expiry date is required</span>  -->
+                        <label class="item item-input col">
+                            <!-- <select class="" name="insurance_type" ng-model="vehicleCtrl.vehicle.insuranceType" >
+                                    <option value="">Insurance Type</option>
+                                    <option ng-value="Comprehensive">Comprehensive</option>
+                                    <option ng-value="zero_depreciation">Zero Depreciation</option>
+                                    <option ng-value="third_party">Third party only</option>
+                            </select>   -->
+                            <select class="" name="insurance_type" ng-model="vehicleCtrl.vehicle.insuranceType" ng-options="insType as insType for insType in vehicleCtrl.insuranceTypeArr" >
+                                    <option value=""><i class="fa fa-sort-desc">Insurance Type</i></option>
+                            </select> 
+                        </label> 
+                    </div>
+            </div>
+            <!-- <button class="skip-button" type="submit" ui-sref="app.mapView">Skip  <i class="icon ion-chevron-right"></i><i class="icon ion-chevron-right"></i> -->
+            </button>
+        </div>
+       
+    </ion-content>
+    <ion-footer-bar class="map-footer" >
+            <button class="button button-block button-map" ng-disabled="addVehicle.$invalid" ng-click="vehicleCtrl.addVehicle()" type="submit">ADD VEHICLE</button>        
+    </ion-footer-bar>
+</form>
+</ion-view>

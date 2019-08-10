@@ -1,0 +1,297 @@
+<ion-view cache-view="false" view-title="Initiate Onboarding" ng-init="wCtrl.loadInitialData()">
+    <ion-nav-buttons side="left">
+        <button class="back-button" ui-sref="app.dashboard">
+            <i class="icon ion-chevron-left"></i>
+        </button>
+    </ion-nav-buttons>
+    <form name="OnboardForm" novalidate>
+        <ion-content class="gsg_main_container">
+            <div class="">
+                <ion-item class="item-stable query-list _z1" ng-click="wCtrl.toggleGroup('od')" ng-class="{active: wCtrl.isGroupShown('od')}">
+                    Owner Details
+                    <i class="icon ion-chevron-down"></i>
+                </ion-item>
+                <ion-item class="item-accordion _z1" ng-show="wCtrl.isGroupShown('od')">
+                    <!-- owner name field start -->
+                    <label class="item item-input" ng-class="{'has-error':OnboardForm.oname.$touched && OnboardForm.fname.$invalid}">
+                        <input type="text" name="fname" ng-model="wCtrl.onboardObject.fname" placeholder="Owner First Name *" required>
+                    </label>
+                    <span class="error-message" ng-show="OnboardForm.fname.$error.required && OnboardForm.fname.$touched">Please enter owner's First Name</span>
+                    <span class="error-message" ng-show="OnboardForm.fname.$error.pattern && OnboardForm.fname.$touched">Please enter a valid Name</span>
+                    
+                    <label class="item item-input" ng-class="{'has-error':OnboardForm.lname.$touched && OnboardForm.lname.$invalid}">
+                        <input type="text" name="lname" ng-model="wCtrl.onboardObject.lname" placeholder="Owner Last Name *" required>
+                    </label>
+                    <span class="error-message" ng-show="OnboardForm.lname.$error.required && OnboardForm.lname.$touched">Please enter owner's name</span>
+                    <span class="error-message" ng-show="OnboardForm.lname.$error.pattern && OnboardForm.lname.$touched">Please enter a valid Name</span>
+                    <label class="item item-input" ng-class="{'has-error':OnboardForm.dob.$touched && OnboardForm.dob.$invalid}">
+                        <input type="text" name="dob" placeholder="Date of Birth *" ng-model="wCtrl.onboardObject.dob"
+                            ng-click="wCtrl.pickDateDob()" required>
+                    </label>
+                    <span class="error-message" ng-show="OnboardForm.dob.$error.required && OnboardForm.dob.$touched">Please select Date of birth</span>
+                    <!-- owner email field start-->
+                    <label class="item item-input" ng-class="{'has-error':OnboardForm.oemail.$touched && OnboardForm.oemail.$invalid}">
+                        <input type="text" name="oemail" placeholder="Email*" ng-model="wCtrl.onboardObject.oemail" ng-pattern="/^[A-Za-z]+[a-zA-Z0-9._]+@[a-zA-Z0-9-]+\.[a-zA-Z.]{2,10}$/"
+                            required>
+                    </label>
+                    <span class="error-message" ng-show="OnboardForm.oemail.$error.required && OnboardForm.oemail.$touched">Please enter your Email</span>
+                    <span class="error-message" ng-show="OnboardForm.oemail.$error.pattern && OnboardForm.oemail.$touched">Please enter a valid Email(eg: abc@something.com)</span>
+                    <!-- owner contact number field start-->
+                    <label class="item item-input" ng-class="{'has-error':OnboardForm.omobile.$touched && OnboardForm.omobile.$invalid}">
+                        <input type="text" name="omobile" placeholder="Contact Number*" ng-model="wCtrl.onboardObject.omobile" ng-pattern="/^(\+\d{1,3}[- ]?)?\d{10}$/"
+                            required ng-blur="wCtrl.checkMobileNumber()">
+                    </label>
+                    <span class="error-message" ng-show="OnboardForm.omobile.$error.required && OnboardForm.omobile.$touched">Please enter your Contact Number</span>
+                    <span class="error-message" ng-show="OnboardForm.omobile.$error.pattern && OnboardForm.omobile.$touched">Contact number should be a 10 digit number</span>
+                </ion-item>
+
+                <!-- owner details ends here-->
+
+                <!-- Workshop Primary Details starts here-->
+                <ion-item class="item-stable query-list _z1" ng-click="wCtrl.toggleGroup('pd')" ng-class="{active: wCtrl.isGroupShown('pd')}">
+                    Workshop Primary Details
+                    <i class="icon ion-chevron-down"></i>
+                </ion-item>
+                <ion-item class="item-accordion _z1" ng-show="wCtrl.isGroupShown('pd')">
+                    <!-- workshop name field start-->
+                    <label class="item item-input" ng-class="{'has-error':OnboardForm.wname.$touched && OnboardForm.wname.$invalid}">
+                        <input type="text" name="wname" ng-model="wCtrl.onboardObject.wname" placeholder="Workshop Name *"
+                            required>
+                    </label>
+                    <span class="error-message" ng-show="OnboardForm.wname.$error.required && OnboardForm.wname.$touched">Please enter workshop's name</span>
+
+                    <!-- workshop email field start-->
+                    <label class="item item-input" ng-class="{'has-error':OnboardForm.wemail.$touched && OnboardForm.wemail.$invalid}">
+                        <input type="text" name="wemail" placeholder="Workshop Email" ng-model="wCtrl.onboardObject.wemail" ng-pattern="/^[A-Za-z]+[a-zA-Z0-9._]+@[a-zA-Z0-9-]+\.[a-zA-Z.]{2,10}$/">
+                    </label>
+                    <span class="error-message" ng-show="OnboardForm.wemail.$error.required && OnboardForm.wemail.$touched">Please enter Workshop Email</span>
+                    <span class="error-message" ng-show="OnboardForm.wemail.$error.pattern && OnboardForm.wemail.$touched">Please enter a valid Email(eg: abc@something.com)</span>
+                    <!-- workshop contact number field start-->
+                    <label class="item item-input" ng-class="{'has-error':OnboardForm.wmobile.$touched && OnboardForm.wmobile.$invalid}">
+                        <input type="text" name="wmobile" placeholder="Workshop Contact Number" ng-model="wCtrl.onboardObject.wmobile" ng-pattern="/^(\+\d{1,3}[- ]?)?\d{10}$/">
+                    </label>
+                    <span class="error-message" ng-show="OnboardForm.wmobile.$error.required && OnboardForm.wmobile.$touched">Please enter workshop contact number</span>
+                    <span class="error-message" ng-show="OnboardForm.wmobile.$error.pattern && OnboardForm.wmobile.$touched">Contact number should be a 10 digit number</span>
+
+                    <ion-item class="item-stable query-list _z1" ng-click="wCtrl.toggleInsideGroup('wfa')" ng-class="{active: wCtrl.isInsideGroupShown('wfa')}">
+                        Workshop Full address
+                        <i class="icon ion-chevron-down"></i>
+                    </ion-item>
+                    <ion-item class="item-accordion _z1" ng-show="wCtrl.isInsideGroupShown('wfa')">
+                        <label class="item item-input" ng-class="{'has-error':OnboardForm.houseno.$touched && OnboardForm.houseno.$invalid}">
+                            <input type="text" placeholder="Plot Number/Building name *" name="houseno" ng-model="wCtrl.onboardObject.waddress.houseno"
+                                required>
+                        </label>
+                        <span class="error-message" ng-show="OnboardForm.houseno.$error.required && OnboardForm.houseno.$touched">Please fill this field</span>
+                        <label class="item item-input" ng-class="{'has-error':OnboardForm.locality.$touched && OnboardForm.locality.$invalid}">
+                            <input type="text" placeholder="Locality *" name="locality" ng-model="wCtrl.onboardObject.waddress.locality"
+                                required>
+                        </label>
+                        <span class="error-message" ng-show="OnboardForm.locality.$error.required && OnboardForm.locality.$touched">Please fill this field</span>
+                        <label class="item item-input" ng-class="{'has-error':OnboardForm.landmark.$touched && OnboardForm.landmark.$invalid}">
+                            <input type="text" placeholder="Landmark *" name="landmark" ng-model="wCtrl.onboardObject.waddress.landmark" required>
+                        </label>
+                        <span class="error-message" ng-show="OnboardForm.landmark.$error.required && OnboardForm.landmark.$touched">Please fill this field</span>
+
+                        <label class="item item-input" ng-class="{'has-error':OnboardForm.wcity.$touched && OnboardForm.wcity.$invalid}">
+                            <input type="text" placeholder="City *" name="wcity" ng-model="wCtrl.onboardObject.waddress.city" required>
+                        </label>
+                        <span class="error-message" ng-show="OnboardForm.wcity.$error.required && OnboardForm.wcity.$touched">Please fill this field</span>
+                        <!-- <span class="error-message" ng-show="updateProfile.city.$error.pattern && updateProfile.city.$touched">Invalid City</span>                              -->
+                        <label class="item item-input" ng-class="{'has-error':OnboardForm.wstate.$touched && OnboardForm.wstate.$invalid}">
+                            <select name="wstate" ng-model="wCtrl.onboardObject.waddress.state" ng-change="wCtrl.getDistrictOfSelectedState(wCtrl.onboardObject.waddress.state)"
+                                required>
+                                <option value="" ng-selected>
+                                    <i class="fa fa-sort-desc">State *</i>
+                                </option>
+                                <option ng-value="states.stateCd" ng-repeat="states in wCtrl.allStates track by $index">{{states.stateCd}}</option>
+                            </select>
+                        </label>
+                        <span class="error-message" ng-show="OnboardForm.wstate.$error.required && OnboardForm.wstate.$touched">Please fill this field</span>
+
+                        <label class="item item-input" ng-class="{'has-error':OnboardForm.wdistrict.$touched && OnboardForm.wdistrict.$invalid}">
+                            <select name="wdistrict" ng-model="wCtrl.onboardObject.waddress.district" required>
+                                <option value="">
+                                    <i class="fa fa-sort-desc">District *</i>
+                                </option>
+                                <option ng-value="districts" ng-repeat="districts in wCtrl.selectedStateDistrict">{{districts}}</option>
+                            </select>
+                        </label>
+                        <span class="error-message" ng-show="OnboardForm.wdistrict.$error.required && OnboardForm.wdistrict.$touched">Please fill this field</span>
+                        <label class="item item-input" ng-class="{'has-error':OnboardForm.wzip.$touched && updateProfile.wzip.$invalid}">
+                            <input type="text" placeholder="Zip code*" ng-model="wCtrl.onboardObject.waddress.wzip" name="wzip" ng-pattern="/^(\+\d{1,3}[- ]?)?\d{6}$/"
+                                required>
+                        </label>
+                        <span class="error-message" ng-show="OnboardForm.wzip.$error.required && OnboardForm.wzip.$touched">Please fill this field</span>
+                        <span class="error-message" ng-show="OnboardForm.wzip.$error.pattern && OnboardForm.wzip.$touched">Invalid Zip code</span>
+
+                    </ion-item>
+                    <label class="item item-input" ng-class="{'has-error':OnboardForm.wage.$touched && OnboardForm.wage.$invalid}">
+                        <input type="number" name="wage" placeholder="How old the workshop is(In Months) *" ng-model="wCtrl.onboardObject.wAge" required>
+                    </label>
+                    <span class="error-message" ng-show="OnboardForm.wage.$error.required && OnboardForm.wage.$touched">Please fill this field</span>
+
+                </ion-item>
+                <!-- Workshop Primary Details ends here-->
+                <!-- Workshop Internal Details starts here-->
+
+                <ion-item class="item-stable query-list _z1" ng-click="wCtrl.toggleGroup('id')" ng-class="{active: wCtrl.isGroupShown('id')}">
+                    Workshop Internal Details
+                    <i class="icon ion-chevron-down"></i>
+                </ion-item>
+                <ion-item class="item-accordion _z1" ng-show="wCtrl.isGroupShown('id')">
+                    <!-- Workshop Internal field Details brand name-->
+                    <ion-item class="item-stable query-list _z1" ng-click="wCtrl.toggleInsideGroup('vb')" ng-class="{active: wCtrl.isInsideGroupShown('vb')}">
+                        Vehicle brands accepted
+                        <i class="icon ion-chevron-down"></i>
+                    </ion-item>
+                    <ion-item class="item-accordion _z1" id="vehicle_list" ng-show="wCtrl.isInsideGroupShown('vb')">
+                        <ion-checkbox ng-repeat="vehicles in wCtrl.vehicleDatas track by $index" class="text-left" ng-model="vehicles.selected">{{vehicles.make}}</ion-checkbox>
+                    </ion-item>
+                    <!-- Workshop Internal field Details address of other branches-->
+                    <label class="item item-input" ng-class="{'has-error':OnboardForm.email.$touched && OnboardForm.email.$invalid}">
+                        <input type="number" name="otherBranchNo" placeholder="Number of other branches *" ng-model="wCtrl.onboardObject.otherBranchNumber"
+                            min="0" ng-change="wCtrl.onboardObject.otherBranchAdress.length = wCtrl.onboardObject.otherBranchNumber"
+                            required>
+                    </label>     
+                    <span class="error-message" ng-show="OnboardForm.otherBranchNo.$error.required && OnboardForm.otherBranchNo.$touched">Please Enter the number of other branches if any (Enter 0 if no other branch is available)</span>
+                    <div ng-repeat="x in wCtrl.onboardObject.otherBranchAdress track by $index">
+                        <label class="item item-input" ng-class="{'has-error':OnboardForm.x_{{$index}}.$touched && OnboardForm.x_{{$index}}.$invalid}">
+                            <textarea class="form-control" rows="3" name="x_{{$index}}" placeholder="Address of branch {{$index + 1}} (required)" ng-model="wCtrl.onboardObject.obaddress[$index]"
+                                required></textarea>
+                        </label>
+                        <span class="error-message" ng-show="OnboardForm.x_{{$index}}.$error.required && OnboardForm.x_{{$index}}.$touched">Please enter address of branch {{$index+1}}</span>
+                    </div>
+
+
+                    <!-- Workshop Internal field average no. of car reporting daily-->
+                    <label class="item item-input" ng-class="{'has-error':OnboardForm.dailycars.$touched && OnboardForm.dailycars.$invalid}">
+                        <input type="number" min="1" name="dailycars" placeholder="Average number of Cars Reporting Daily *" ng-model="wCtrl.onboardObject.avgCarsRptDly"
+                            required>
+                    </label>
+                    <span class="error-message" ng-show="OnboardForm.dailycars.$error.required && OnboardForm.dailycars.$touched">Please Enter the average no. of car reporting daily (Should be greater than 0)</span>
+                    <!-- <span class="error-message" ng-show="OnboardForm.mobile.$error.pattern && OnboardForm.mobile.$touched"></span> -->
+
+                    <!-- Workshop Internal field monthly revenue-->
+                    <label class="item item-input" ng-class="{'has-error':OnboardForm.mobile.$touched && OnboardForm.mobile.$invalid}">
+                        <input type="number" name="mrevenue" placeholder="Monthly Revenue(In Rupees) *" ng-model="wCtrl.onboardObject.mrevenue" required>
+                    </label>
+                    <span class="error-message" ng-show="OnboardForm.mrevenue.$error.required && OnboardForm.mrevenue.$touched">Please enter monthly revenue(In rupees)</span>
+
+
+                    <!-- Workshop Internal field staff details-->
+                    <ion-item class="item-stable query-list _z1" ng-click="wCtrl.toggleInsideGroup('sd')" ng-class="{active: wCtrl.isInsideGroupShown('sd')}">
+                        Workshop Staff Details
+                        <i class="icon ion-chevron-down"></i>
+                    </ion-item>
+                    <ion-item class="item-accordion _z1" ng-show="wCtrl.isInsideGroupShown('sd')">
+                        <label class="item item-input" ng-class="{'has-error':OnboardForm.smechs.$touched && OnboardForm.smechs.$invalid}">
+                            <input type="number" min="0" name="smechs" placeholder="Number of senior mechanics *" ng-model="wCtrl.onboardObject.wsmechs"
+                                required>
+                        </label>
+                        <span class="error-message" ng-show="OnboardForm.smechs.$error.required && OnboardForm.smechs.$touched">Please fill this field(Enter 0 if not available)</span>
+                        <label class="item item-input" ng-class="{'has-error':OnboardForm.mechs.$touched && OnboardForm.mechs.$invalid}">
+                            <input type="number" min="0" name="mechs" placeholder="Number of mechanics *" ng-model="wCtrl.onboardObject.wmechs" required>
+                        </label>
+                        <span class="error-message" ng-show="OnboardForm.mechs.$error.required && OnboardForm.mechs.$touched">Please fill this field(Enter 0 if not available)</span>
+                        <label class="item item-input" ng-class="{'has-error':OnboardForm.helpers.$touched && OnboardForm.helpers.$invalid}">
+                            <input type="number" min="0" name="helpers" placeholder="Number of helpers *" ng-model="wCtrl.onboardObject.whelpers" required>
+                        </label>
+                        <span class="error-message" ng-show="OnboardForm.helpers.$error.required && OnboardForm.helpers.$touched">Please fill this field(Enter 0 if not available)</span>
+                        <label class="item item-input" ng-class="{'has-error':OnboardForm.washers.$touched && OnboardForm.washers.$invalid}">
+                            <input type="number" min="0" name="washers" placeholder="Number of washers *" ng-model="wCtrl.onboardObject.wwashers" required>
+                        </label>
+                        <span class="error-message" ng-show="OnboardForm.washers.$error.required && OnboardForm.washers.$touched">Please fill this field(Enter 0 if not available)</span>
+                    </ion-item>
+                    <ion-item class="item-stable query-list _z1" ng-click="wCtrl.toggleInsideGroup('vc')" ng-class="{active: wCtrl.isInsideGroupShown('vc')}">
+                        Category of vehicles Repaired
+                        <i class="icon ion-chevron-down"></i>
+                    </ion-item>
+                    <ion-item class="item-accordion _z1" ng-show="wCtrl.isInsideGroupShown('vc')">
+                        <ion-checkbox ng-repeat="v in wCtrl.vehicleCategory" class="text-left" ng-model="v.isSelected">{{v.name}}</ion-checkbox>
+                        <ion-checkbox class="text-left" ng-model="wCtrl.onboardObject.vehicleRother">Others</ion-checkbox>
+                        <label ng-if="wCtrl.onboardObject.vehicleRother" class="item item-input" ng-class="{'has-error':OnboardForm.x_{{$index}}.$touched && OnboardForm.x_{{$index}}.$invalid}">
+                            <textarea class="form-control" rows="3" name="otherVehicleCategoryDetails" placeholder="Please mention if any details available"
+                                ng-model="wCtrl.onboardObject.otherVehicleCategory"></textarea>
+                        </label>
+                    </ion-item>
+                    <ion-item class="item-stable query-list _z1" ng-click="wCtrl.toggleInsideGroup('sa')" ng-class="{active: wCtrl.isInsideGroupShown('sa')}">
+                        Services Available
+                        <i class="icon ion-chevron-down"></i>
+                    </ion-item>
+                    <ion-item class="item-accordion _z1" ng-show="wCtrl.isInsideGroupShown('sa')">
+                        <ion-checkbox ng-repeat="s in wCtrl.services" class="text-left" ng-model="s.isSelected">{{s.name}}</ion-checkbox>
+                        <ion-checkbox class="text-left" ng-model="wCtrl.onboardObject.sothers">Others</ion-checkbox>
+                        <label ng-if="wCtrl.onboardObject.sothers" class="item item-input" ng-class="{'has-error':OnboardForm.x_{{$index}}.$touched && OnboardForm.x_{{$index}}.$invalid}">
+                            <textarea class="form-control" rows="3" name="otherVehicleCategoryDetails" placeholder="Please mention if any details available"
+                                ng-model="wCtrl.onboardObject.otherService"></textarea>
+                        </label>
+                    </ion-item>
+                    <ion-item class="item-stable query-list _z1" ng-click="wCtrl.toggleInsideGroup('fa')" ng-class="{active: wCtrl.isInsideGroupShown('fa')}">
+                        Facilities Available
+                        <i class="icon ion-chevron-down"></i>
+                    </ion-item>
+                    <ion-item class="item-accordion _z1" ng-show="wCtrl.isInsideGroupShown('fa')">
+                        <ion-checkbox ng-repeat="f in wCtrl.facilities" class="text-left" ng-model="f.isSelected">{{f.name}}</ion-checkbox>
+                        <ion-checkbox class="text-left" ng-model="wCtrl.onboardObject.fothers">Others</ion-checkbox>
+                        <label ng-if="wCtrl.onboardObject.fothers" class="item item-input">
+                            <textarea class="form-control" rows="3" name="otherVehicleCategoryDetails" placeholder="Please mention if any details available"
+                                ng-model="wCtrl.onboardObject.otherFacility"></textarea>
+                        </label>
+                    </ion-item>
+                </ion-item>
+                <!-- Workshop Internal Details ends here-->
+                <!-- Workshop Appointment Details starts here-->
+                <ion-item class="item-stable query-list _z1" ng-click="wCtrl.toggleGroup('ad')" ng-class="{active: wCtrl.isGroupShown('ad')}">
+                    Workshop Appointment Details
+                    <i class="icon ion-chevron-down"></i>
+                </ion-item>
+                <ion-item class="item-accordion _z1" ng-show="wCtrl.isGroupShown('ad')">
+                    <!--Workshop Appointment date-->
+                    <label class="item item-input" ng-class="{'has-error':OnboardForm.appointmentdate.$touched && OnboardForm.appointmentdate.$invalid}">
+                        <input type="text" name="appointmentdate" placeholder="Appointment Date *" readonly ng-model="wCtrl.onboardObject.appointmentDate"
+                            ng-click="wCtrl.pickDate()" required>
+                    </label>
+                    <span class="error-message" ng-show="OnboardForm.appointmentdate.$error.required && OnboardForm.appointmentdate.$touched">Please enter the appointment date</span>
+                    <!-- Workshop Appointment time-->
+                    <label class="item item-input" ng-class="{'has-error':OnboardForm.appointmenttime.$touched && OnboardForm.appointmenttime.$invalid}">
+                        <input type="text" name="appointmenttime" placeholder="Appointment Time *" readonly ng-model="wCtrl.onboardObject.appointmentTime"
+                            ng-click="wCtrl.pickTime()" required>
+                    </label>
+                    <span class="error-message" ng-show="OnboardForm.appointmenttime.$error.required && OnboardForm.appointmenttime.$touched">Please enter appointment time</span>
+                </ion-item>
+
+                <!-- Workshop Appointment Details ends here-->
+                <ion-item class="item-stable query-list _z1" ng-click="wCtrl.toggleGroup('cl')" ng-class="{active: wCtrl.isGroupShown('cl')}">
+                    Capture Location
+                    <i class="icon ion-chevron-down"></i>
+                </ion-item>
+                <ion-item class="item-accordion _z1" ng-show="wCtrl.isGroupShown('cl')">
+                    <button class="button button-positive col col-100" name="capturebutton" type="submit" ng-click="wCtrl.captureLocation()">Capture</button>
+                    <br>
+                    <div ng-if="wCtrl.showLatLng" class="row">
+                        Lattitude : {{wCtrl.myLatlng.lat}}
+                        <br> Longitude : {{wCtrl.myLatlng.lng}}
+                    </div>
+                    <div id="map2"></div>
+                </ion-item>
+                <!-- <ion-item class="item-stable query-list _z1" ng-click="wCtrl.toggleGroup('os')" ng-class="{active: wCtrl.isGroupShown('os')}">
+                    Onboarding Status
+                    <i class="icon ion-chevron-down"></i>
+                </ion-item> -->
+                <!-- <ion-item class="item-accordion _z1" ng-show="wCtrl.isGroupShown('os')">
+                    <label class="item item-input" ng-class="{'has-error':OnboardForm.wstate.$touched && OnboardForm.wstate.$invalid}">
+                        <select name="wstate" ng-model="wCtrl.onboardObject.status" required>
+                            <option value="" ng-selected>
+                                <i class="fa fa-sort-desc">Status</i>
+                            </option>
+                        </select>
+                    </label>
+                </ion-item> -->
+            </div>
+        </ion-content>
+        <ion-footer-bar class="map-footer">
+            <button class="button button-block button-map" ng-disabled="OnboardForm.$invalid" ng-click="wCtrl.initiateOnboard()">Onboard</button>
+        </ion-footer-bar>
+    </form>
+</ion-view>

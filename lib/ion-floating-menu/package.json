@@ -1,0 +1,87 @@
+{
+  "_args": [
+    [
+      {
+        "raw": "ion-floating-menu",
+        "scope": null,
+        "escapedName": "ion-floating-menu",
+        "name": "ion-floating-menu",
+        "rawSpec": "",
+        "spec": "latest",
+        "type": "tag"
+      },
+      "C:\\Users\\Aryan\\Desktop\\GSG-Ionic"
+    ]
+  ],
+  "_from": "ion-floating-menu@latest",
+  "_id": "ion-floating-menu@1.0.6",
+  "_inCache": true,
+  "_location": "/ion-floating-menu",
+  "_nodeVersion": "6.9.2",
+  "_npmOperationalInternal": {
+    "host": "s3://npm-registry-packages",
+    "tmp": "tmp/ion-floating-menu-1.0.6.tgz_1509570407623_0.161725752055645"
+  },
+  "_npmUser": {
+    "name": "pregiotek",
+    "email": "info@pregiotek.com"
+  },
+  "_npmVersion": "3.10.9",
+  "_phantomChildren": {},
+  "_requested": {
+    "raw": "ion-floating-menu",
+    "scope": null,
+    "escapedName": "ion-floating-menu",
+    "name": "ion-floating-menu",
+    "rawSpec": "",
+    "spec": "latest",
+    "type": "tag"
+  },
+  "_requiredBy": [
+    "#USER"
+  ],
+  "_resolved": "https://registry.npmjs.org/ion-floating-menu/-/ion-floating-menu-1.0.6.tgz",
+  "_shasum": "c7e495cdba7f97112e5bcf1284e5bc7ddf84a782",
+  "_shrinkwrap": null,
+  "_spec": "ion-floating-menu",
+  "_where": "C:\\Users\\Aryan\\Desktop\\GSG-Ionic",
+  "author": {
+    "name": "pregiotek",
+    "email": "ndg@pregiotek.com"
+  },
+  "bugs": {
+    "url": "https://github.com/pregiotek/ion-floating-menu/issues"
+  },
+  "dependencies": {},
+  "description": "Material UI-like Floating Action Button and Menu for Ionic applications",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-clean-css": "^2.0.13",
+    "gulp-concat": "^2.6.0",
+    "gulp-uglify": "^2.0.0",
+    "gulp-util": "^3.0.7"
+  },
+  "directories": {},
+  "dist": {
+    "shasum": "c7e495cdba7f97112e5bcf1284e5bc7ddf84a782",
+    "tarball": "https://registry.npmjs.org/ion-floating-menu/-/ion-floating-menu-1.0.6.tgz"
+  },
+  "gitHead": "502504b9afcf3133a458efdcbd893b5528195972",
+  "homepage": "https://github.com/pregiotek/ion-floating-menu#readme",
+  "license": "MIT",
+  "maintainers": [
+    {
+      "name": "pregiotek",
+      "email": "info@pregiotek.com"
+    }
+  ],
+  "name": "ion-floating-menu",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pregiotek/ion-floating-menu.git"
+  },
+  "scripts": {},
+  "version": "1.0.6"
+}

@@ -1,0 +1,24 @@
+<ion-modal-view>
+  <ion-header-bar class="bar-energized gsg-colour">
+    <button class="button button-clear" ng-click="srvcCtrl.closeModal()">
+      <i class="icon ion-android-close"></i>
+    </button>
+    <h1 class="title">Nearest workshop</h1>
+  </ion-header-bar>
+  <ion-content scroll>
+    <div class="list workshop_list" ng-if="mapCtrl.workshopList.length > 0">
+      <a class="item item-avatar" href="" ng-repeat="item in mapCtrl.workshopList">
+        <h2>{{item.wName}}</h2>
+        <p>{{item.address[0].houseNbr}}, {{item.address[0].locality}}, {{item.address[0].city}}, {{item.address[0].district}},
+          {{item.address[0].state}}, {{item.address[0].zip}}
+        </p>
+        <ionic-ratings class="text-left" ratingsobj='item.ratingObject' index='0'></ionic-ratings>
+      </a>
+    </div>
+    <div class="no-workshop" ng-if="mapCtrl.workshopList.length == 0">
+      <span>There is no workshop near you</span>
+    </div>
+  </ion-content>
+  <ion-footer-bar class="map-footer">
+  </ion-footer-bar>
+</ion-modal-view>

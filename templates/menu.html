@@ -1,0 +1,96 @@
+<ion-side-menus enable-menu-with-back-views="true" cache-view="false">
+  <ion-side-menu-content>
+    <ion-nav-bar class="bar-stable" align-title="center">
+      <ion-nav-buttons side="left">
+        <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
+        </button>
+      </ion-nav-buttons>
+    </ion-nav-bar>
+    <ion-nav-view name="menuContent"></ion-nav-view>
+  </ion-side-menu-content>
+  <ion-side-menu side="left">
+    <ion-header-bar class="side-menu-header">
+      <!-- <h1 class="title side-menu-header-bar" ><i class="icon ion-android-home"></i></h1> -->
+      <!-- <div class="banner_logo">
+          <img src="img/logo3.png" alt="">
+      </div> -->
+      <div class="profile_head"  ng-controller="ProfileController as profileCtrl" ng-init="profileCtrl.getLoginUserDetails()">
+        <div class="myprofile">         
+          <img ng-src="{{profileCtrl.profile_image}}"/>
+        </div>      
+        <div class="m-t-39">
+            <h5>{{profileCtrl.userUpdate.firstName }} {{(profileCtrl.userUpdate.middleName == "null" || profileCtrl.userUpdate.middleName == null || !profileCtrl.userUpdate.middleName)? " " : profileCtrl.userUpdate.middleName }} {{profileCtrl.userUpdate.lastName}}</h5>
+            <h6 class="">{{profileCtrl.userUpdate.contactNbr}}</h6>
+            <h6 class="">{{profileCtrl.userUpdate.email}}</h6>
+        </div>
+      </div>
+    </ion-header-bar>
+    <ion-content class="side-menu">
+      <ion-list >
+        <a href="">
+          <ion-item menu-close ng-click="login()" class="">
+            <i class="icon ion-android-home m-r-10"></i>
+            Home
+          </ion-item>
+        </a> 
+        <a href="" ui-sref="app.dashboard" ng-show="checkSvcEngineer()">
+          <ion-item menu-close class="side-menu">
+            <i class="icon ion-navigate m-r-10"></i>
+            Dashboard
+          </ion-item>
+        </a>       
+        <a href="" ui-sref="app.profile">
+          <ion-item menu-close class="side-menu">
+            <i class="icon ion-person m-r-10"></i>
+            My Profile
+          </ion-item>
+        </a>
+       
+        <a href="" ui-sref="app.vehicles">
+          <ion-item menu-close class="side-menu" >
+            <i class="icon ion-model-s m-r-10"></i>
+          My Vehicles
+          </ion-item>
+        </a>
+        <a href="" ui-sref="app.tarrif-plan">
+          <ion-item menu-close class="side-menu" >
+            <i class="icon ion-pricetags m-r-10"></i>
+            Tarrif Plan
+          </ion-item>
+        </a>
+        <a href="" ui-sref="app.requests">
+          <ion-item menu-close class="side-menu">
+            <i class="icon ion-arrow-return-right m-r-10"></i>
+            My Request
+          </ion-item>
+        </a>
+        <a href=""  ui-sref="app.cart">
+          <ion-item menu-close class="side-menu">
+            <i class="icon ion-android-cart m-r-10"></i>
+            My Cart
+          </ion-item>
+        </a>
+        <!-- <a href="" ui-sref="app.contactUs">
+          <ion-item menu-close class="side-menu">
+            <i class="icon ion-android-call m-r-10"></i>
+            Help & support
+          </ion-item>
+        </a> -->
+        <a href="">
+            <ion-item menu-close class="side-menu" ng-controller="ProfileController as profileCtrl" ng-click="profileCtrl.changePassword()">
+              <i class="icon ion-locked m-r-10"></i>
+              Change Password
+            </ion-item>
+          </a>
+        <a href="">
+          <ion-item menu-close class="side-menu" ng-controller="LoginController as loginCtrl" ng-click="loginCtrl.logout()">
+            <i class="icon ion-power m-r-10"></i>
+            Logout
+          </ion-item>
+        </a>
+      <span style="color:gray;padding-left:50px;"> v1.0.0 </span>
+      </ion-list>
+    </ion-content>
+   <!--  -->
+  </ion-side-menu>
+</ion-side-menus>

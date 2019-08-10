@@ -1,0 +1,27 @@
+<ion-view cache-view="false" hide-nav-bar="true">
+  <ion-content class="gsg_main_container">
+    <div class="gsg_login">
+      <div class="banner_logo">
+          <img src="img/logo3.png" alt="">
+      </div>
+      <div>
+        <form>
+            <div class="list m-t-20">
+            <span class="plain-text">
+                An OTP sent to your no {{otpCtrl.contactNo}}
+            </span>
+            </div>
+          <div class="list m-t-20">
+              <label class="item item-input">
+                  <input type="text" ng-model="otpCtrl.otp" placeholder="INSERT OTP">
+              </label>
+            <a href="" class="otp-resend not-your-no" ui-sref="register">Not your Number</a>
+            <a href="" class="otp-resend" ng-click="otpCtrl.resendOtp(otpCtrl.contactNo)">Resend OTP</a>
+            <button class="button button-block button-positive" ng-click="otpCtrl.verifyOtp()" type="submit">Submit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    
+  </ion-content>
+</ion-view>

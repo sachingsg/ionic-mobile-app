@@ -1,0 +1,26 @@
+<ion-modal-view>
+<ion-header-bar class="item-input-inset">
+    <button class="back-button google-close" ng-click="close()">
+        <i class="icon ion-close"></i>
+    </button>
+   
+    <label class="item-input-wrapper">
+        <i class="icon ion-ios7-search placeholder-icon"></i>
+        <input type="search" ng-model="search.query" placeholder="Search">
+    </label>
+    
+</ion-header-bar>
+<ion-content>
+    <ion-list>
+        <ion-item ng-show="search.error">
+            {{search.error}}
+        </ion-item>
+        <ion-item ng-repeat="suggestion in search.suggestions" ng-click="choosePlace(suggestion)">
+            {{suggestion.description}}
+        </ion-item>
+    </ion-list>
+    <div class="power-by">
+        <img src="https://developers.google.com/maps/documentation/places/images/powered-by-google-on-white.png" alt="" />
+    </div>
+</ioSn-content>
+</ion-modal-view>

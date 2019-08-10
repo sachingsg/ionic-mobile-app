@@ -1,0 +1,85 @@
+<!-- <ion-modal-view>
+    <ion-header-bar class="bar-energized gsg-colour">
+        <button class="button button-clear" ng-click="planCtrl.closePlanListModal()">
+            <i class="icon ion-android-close"></i>
+        </button>
+        <h1 class="title">{{planCtrl.planSrvcDtls.description}}</h1>
+    </ion-header-bar>
+    <ion-content>
+        <div class="list list-plan">
+            <a class="item item-avatar" ng-hide="services.freeUsage == 0" href="" ng-repeat="services in planCtrl.planSrvcDtls.schemeServiceDtls" >
+                <h2>{{services.freeUsage == 99 ? "Unlimited" : services.freeUsage }} &nbsp; {{services.serviceDesc}}</h2>
+                <p>{{services.freeUsage}} Checkup/Year</p> -->
+            <!-- </a>
+        </div>
+    </ion-content>
+    <ion-footer-bar class="map-footer" >
+        <button class="button button-block button-map" type="submit" ng-click="planCtrl.subscribePlan(planCtrl.planSrvcDtls)" >PAY NOW  ({{planCtrl.planSrvcDtls.price}}+ GST) </button>
+    </ion-footer-bar>
+</ion-modal-view> -->
+<ion-modal-view>
+    <ion-header-bar class="bar-energized gsg-colour">
+        <button class="button button-clear" ng-click="planCtrl.closePlanListModal()">
+            <i class="icon ion-android-close"></i>
+        </button>
+        <h1 class="title">{{planCtrl.planSrvcDtls.description}}</h1>
+    </ion-header-bar>
+    <ion-content>
+        <div class="list list-plan">
+            <a class="item item-avatar" ng-hide="services.freeUsage == 0" href="" ng-repeat="services in planCtrl.planSrvcDtls.schemeServiceDtls" >
+                <h2>{{services.freeUsage == 99 ? "Unlimited" : services.freeUsage }} &nbsp; {{services.serviceDesc}}</h2>
+            </a>
+            <div class="list" id="referralList">
+
+                    <!-- <ion-icon name="arrow-dropleft-circle" ng-click="planCtrl.skipReferral()"></ion-icon> -->
+                    <i class="fa fa-arrow-circle-left m-r-16" ng-click="planCtrl.skipReferral()" aria-hidden="true"></i>
+                    <span class="skip" ng-click="planCtrl.skipReferral()">Skip</span>
+
+                    <h4 class="title m-l-20">Referred By</h4>
+
+                    <div class="item item-divider" ng-repeat="referral in planCtrl.referralArr" ng-click="planCtrl.onReferral($index,planCtrl)">
+                            <ion-radio ng-model="planCtrl.choice">{{referral.referType}}</ion-radio>
+                            <div class="row" ng-show="referral.isSelect && referral.referType == 'Friend' ">
+                             <!-- Friend type -->
+                              <div class="col">
+                                <label  class="item item-input" >
+                                  <input type="text" ng-model="referral.name" placeholder="name">
+                                </label>
+                              </div>
+                              <div class="col">
+                                <label  class="item item-input" >
+                                  <input type="text" ng-model="referral.mobileNbr" placeholder="Mobile">
+                                </label>
+                              </div>
+                            </div>
+                            <!-- Employee type -->
+                            <div class="row" ng-show="referral.isSelect && referral.referType == 'Employee' ">
+                              <div class="col col-40">
+                                <label  class="item item-input" >
+                                  <input type="text" ng-model="referral.refCode" placeholder="Ref Code">
+                                </label>
+
+
+                              </div>
+                              <div class="col col-20 ref-search">
+                                  <!-- <ion-icon name="search" ng-click="planCtrl.validateRefCode(referral)"></ion-icon> -->
+                                  <i class="fa fa-search" name="search" ng-click="planCtrl.validateRefCode(referral)" aria-hidden="true"></i>
+
+                                <!-- <button class="button button-positive m-t-10-px" type="submit" ng-click="planCtrl.validateRefCode(referral)">Submit</button> -->
+                              </div>
+                              <div class="col col-40" ng-if="referral.showDetails">
+                                <label  class="item item-input" >
+                                    <input type="text" ng-model="referral.name" readonly>
+                                  </label>
+                              </div>
+                            </div>
+                    </div>
+            </div>
+
+        </div>
+
+    </ion-content>
+    <ion-footer-bar class="map-footer" >
+        <button class="button button-block button-map" type="submit" ng-click="planCtrl.subscribePlan(planCtrl.planSrvcDtls)" >PAY NOW  ({{planCtrl.planSrvcDtls.price}}+ GST) </button>
+    </ion-footer-bar>
+</ion-modal-view>
